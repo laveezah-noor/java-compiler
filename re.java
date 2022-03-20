@@ -223,15 +223,15 @@ class GFG {
 
 	}
 }
-op={"+","-","/","*"};
-punctuation={";",",",":","{","}","?"};
-logOp = {">","<","=",">=","<="};
-assOp= {"+=","-="};
+// op={"+","-","/","*"};
+// punctuation={";",",",":","{","}","?"};
+// logOp = {">","<","=",">=","<="};
+// assOp= {"+=","-="};
 
 
-public static void
-lexer(loop);
-array [] = lexum [];
-		for (int ch = 0, ch+=input{
-		System.out.println();
-		}
+// public static void
+// lexer(loop);
+// array [] = lexum [];
+// 		for (int ch = 0, ch+=input{
+// 		System.out.println();
+// 		}
