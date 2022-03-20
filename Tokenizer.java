@@ -1,6 +1,8 @@
 import java.util.regex.*;
 
 public class Tokenizer {
+    // All the functions to check the lexemes
+    //  Identifier Constant
     public static boolean isIdentifier(String identifier) {
 
         // Regex to check valid identifier.
@@ -25,6 +27,7 @@ public class Tokenizer {
         return m.matches();
     }
 
+    //  Integer Constant
     public static boolean isInteger(String identifier) {
 
         // Regex to check valid identifier.
@@ -49,6 +52,7 @@ public class Tokenizer {
         return m.matches();
     }
 
+    //  Character Constant
     public static boolean isCharacter(String identifier) {
 
         // Regex to check valid identifier.
@@ -73,6 +77,7 @@ public class Tokenizer {
         return m.matches();
     }
 
+    //  String Constant
     public static boolean isString(String identifier) {
 
         // Regex to check valid identifier.
@@ -97,6 +102,7 @@ public class Tokenizer {
         return m.matches();
     }
 
+    //  Float Constant
     public static boolean isFloat(String identifier) {
 
         // Regex to check valid identifier.
@@ -121,6 +127,7 @@ public class Tokenizer {
         return m.matches();
     }
 
+    //  Keyword Constant
     public static boolean isKeyword(String identifier) {
 
         // Regex to check valid identifier.
@@ -143,6 +150,7 @@ public class Tokenizer {
         return exists;
     }
 
+    //  Operator Constant
     public static boolean isOperator(String identifier) {
 
         // Regex to check valid identifier.
@@ -162,51 +170,49 @@ public class Tokenizer {
         return exists;
     }
 
-    public static void Tokenizers(String input) {
+    // Tokenizer Function to identify each lexeme
+    public static void Tokenizers(String lexeme) {
+        // Initialize Token Class as arr
         Token arr;
-        // arr = new Token();
-
-        if (isKeyword(input)) {
-            // return "KEYWORD";
-            arr = new Token(1, "KEYWORD", input);
-
+        // Check if lexeme is keyword
+        if (isKeyword(lexeme)) {
+            arr = new Token(1, "KEYWORD", lexeme);
             arr.display();
-        } else if (isIdentifier(input)) {
-            // return "ID";
-            arr = new Token(1, "ID", input);
-
-            arr.display();
-        } else if (isInteger(input)) {
-            // return "INT";
-            arr = new Token(1, "INT", input);
-
-            arr.display();
-        } else if (isCharacter(input)) {
-            // return "CHAR";
-            arr = new Token(1, "CHAR", input);
-
-            arr.display();
-        } else if (isString(input)) {
-            // return "STRING";
-            arr = new Token(1, "STRING", input);
-
-            arr.display();
-        } else if (isOperator(input)) {
-            // return "STRING";
-            arr = new Token(1, "OPERATOR", input);
-
-            arr.display();
-        } else {
-            arr = new Token(1, "UNDEFINED", input);
-
-            arr.display();
-
         }
-
+        // Check if lexeme is identifier
+         else if (isIdentifier(lexeme)) {
+            arr = new Token(1, "ID", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is integer
+         else if (isInteger(lexeme)) {
+            arr = new Token(1, "INT", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is character
+         else if (isCharacter(lexeme)) {
+            arr = new Token(1, "CHAR", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is string
+         else if (isString(lexeme)) {
+            arr = new Token(1, "STRING", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is operator
+         else if (isOperator(lexeme)) {
+            arr = new Token(1, "OPERATOR", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is undefined
+         else {
+            arr = new Token(1, "UNDEFINED", lexeme);
+            arr.display();
+        }
     }
-
+    // Token Class 
     static class Token {
-
+        // Token class variables
         public String type;
         public String value;
         public int line;
