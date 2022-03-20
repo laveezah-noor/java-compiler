@@ -136,7 +136,7 @@ public class Tokenizer{
 	{
 
 		// Regex to check valid identifier.
-		String[] regex = {"if", "else", "integer", "this", "boolean", "stop", "grab", "throw", "character", "class", "resume", "case",
+		String[] regex = {"if", "else", "int", "str", "this", "boolean", "stop", "grab", "throw", "character", "class", "resume", "case",
 		"default","extends","do","float","for","insert","new","pri","pro","uni","return","static","super","test"};
 
 		// Compile the ReGex
@@ -151,28 +151,31 @@ public class Tokenizer{
 		}
 
 		return exists;
-//
-//
-//		// If the identifier is empty
-//		// return false
-//		if (identifier == null) {
-//			return false;
-//		}
-//
-//		// Pattern class contains matcher() method
-//		// to find matching between given identifier
-//		// and regular expression.
-//		Matcher m = p.matcher(identifier);
-//
-//		// Return if the identifier
-//		// matched the ReGex
-//		return m.matches();
 	}
     
     public static void Tokenizers (String input){
         Token arr;
         // arr = new Token();
-        if (isCharacter(input)){
+        
+        if (isKeyword(input)){
+            // return "KEYWORD";
+            arr = new Token(1, "KEYWORD", input);
+
+            arr.display();
+        } 
+        else if (isIdentifier(input)){
+            // return "ID";
+            arr = new Token(1, "ID", input);
+
+            arr.display();
+        } 
+        else if (isInteger(input)){
+            // return "INT";
+            arr = new Token(1, "INT", input);
+
+            arr.display();
+        }
+        else if (isCharacter(input)){
             // return "CHAR";
             arr = new Token(1, "CHAR", input);
 
@@ -181,24 +184,6 @@ public class Tokenizer{
         else if (isString(input)){
             // return "STRING";
             arr = new Token(1, "STRING", input);
-
-            arr.display();
-        }
-        else if (isIdentifier(input)){
-            // return "ID";
-            arr = new Token(1, "ID", input);
-
-            arr.display();
-        }
-        else if (isInteger(input)){
-            // return "INT";
-            arr = new Token(1, "INT", input);
-
-            arr.display();
-        }
-        else if (isKeyword(input)){
-            // return "KEYWORD";
-            arr = new Token(1, "KEYWORD", input);
 
             arr.display();
         }
@@ -231,11 +216,11 @@ public class Tokenizer{
     public static void main(String args[])
 	{
         Tokenizers("int");
+        Tokenizers("a");
+        Tokenizers("+");
+        Tokenizers("b");
+        Tokenizers(";");
+        Tokenizers("\"hello\"");
         
-        // System.out.println(lexeme.opList.contains("+"));
-        // System.out.println(lexeme.puncList.contains(" "));
-        // System.out.println(lexeme.puncList);
-        // System.out.println(lexeme.opList);
-    
     }    
 }
