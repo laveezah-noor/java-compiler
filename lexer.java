@@ -24,76 +24,76 @@ public class lexer {
             // System.out.println(ch);
             // System.out.println(opList.contains(ch));
             // System.out.println(puncList.contains(ch));
-            while (!opList.contains(ch) & !puncList.contains(ch)) {
+            if (!opList.contains(ch) & !puncList.contains(ch)) {
                 lexeme += ch; 
                 System.out.println("Lexeme: " + lexeme);
-                break;
             }
-            if (lexeme != ""){
-                Tokenizer(lexeme);
-            }
+            
+            // if (lexeme != ""){
+            //     Tokenizer(lexeme);
+            // }
             // else if (opList.contains(ch) | puncList.contains(ch)) {
             //     lexeme = "";
             // }
         }
         System.out.println("Full Lexeme: " + lexeme);
       }
-    public static Object[] Tokenizer (String input){
-        GFG RE = new GFG();
-        Token[] arr;
-        arr = new Token[1];
-        if (RE.isCharacter(input)){
-            // return "CHAR";
-            arr[0] = new Token(1, "CHAR", input);
+    // public static Object[] Tokenizer (String input){
+    //     GFG RE = new GFG();
+    //     Token[] arr;
+    //     arr = new Token[1];
+    //     if (RE.isCharacter(input)){
+    //         // return "CHAR";
+    //         arr[0] = new Token(1, "CHAR", input);
 
-        }
-        else if (RE.isString(input)){
-            // return "STRING";
-            arr[0] = new Token(1, "STRING", input);
+    //     }
+    //     else if (RE.isString(input)){
+    //         // return "STRING";
+    //         arr[0] = new Token(1, "STRING", input);
 
-        }
-        else if (RE.isIdentifier(input)){
-            // return "ID";
-            arr[0] = new Token(1, "ID", input);
+    //     }
+    //     else if (RE.isIdentifier(input)){
+    //         // return "ID";
+    //         arr[0] = new Token(1, "ID", input);
 
-        }
-        else if (RE.isInteger(input)){
-            // return "INT";
-            arr[0] = new Token(1, "INT", input);
+    //     }
+    //     else if (RE.isInteger(input)){
+    //         // return "INT";
+    //         arr[0] = new Token(1, "INT", input);
 
-        }
-        else if (RE.isKeyword(input)){
-            // return "KEYWORD";
-            arr[0] = new Token(1, "KEYWORD", input);
+    //     }
+    //     else if (RE.isKeyword(input)){
+    //         // return "KEYWORD";
+    //         arr[0] = new Token(1, "KEYWORD", input);
 
-        }
-        return arr;
+    //     }
+    //     return arr;
         
-    }
-    static class Token {
+    // }
+    // static class Token {
   
-        public String type;
-        public String value;
-        public int line;
+    //     public String type;
+    //     public String value;
+    //     public int line;
       
-        // Token class constructor
-        Token(int line, String type, String value)
-        {
-            this.line = line;
-            this.type = type;
-            this.value = value;
-        }
+    //     // Token class constructor
+    //     Token(int line, String type, String value)
+    //     {
+    //         this.line = line;
+    //         this.type = type;
+    //         this.value = value;
+    //     }
       
-        // display() method to display
-        // the Token data
-        public void display()
-        {
-            System.out.println("Token (type:" + type 
-                               + ", value: " + value
-                               + ", line:" + line + ");");
-            System.out.println();
-        }
-    }
+    //     // display() method to display
+    //     // the Token data
+    //     public void display()
+    //     {
+    //         System.out.println("Token (type:" + type 
+    //                            + ", value: " + value
+    //                            + ", line:" + line + ");");
+    //         System.out.println();
+    //     }
+    // }
     public static void main(String args[])
 	{
         lexeme("int 1 + 2; string 3 + 5;");

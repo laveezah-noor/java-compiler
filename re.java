@@ -11,7 +11,7 @@ class GFG {
 	{
 
 		// Regex to check valid identifier.
-		String regex = "^([a-zA-Z_][a-zA-Z\\d_]+)$";
+		String regex = "^([a-zA-Z_]?[a-zA-Z\\d_]+)$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
@@ -61,9 +61,10 @@ class GFG {
     public static boolean
 	isCharacter(String identifier)
 	{
+		// boolean start = identifier.startsWith("'") && identifier.endsWith("'");
 
 		// Regex to check valid identifier.
-		String regex = "[\\w\\W]";
+		String regex = "^'[\\w\\W]'$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
@@ -81,6 +82,8 @@ class GFG {
 
 		// Return if the identifier
 		// matched the ReGex
+		
+		System.out.println(identifier);
 		return m.matches();
 	}
 
@@ -195,6 +198,7 @@ class GFG {
 //		String str3 = "1geeks";
 //		System.out.println(isIdentifier(str3));
 		System.out.println(isCharacter("\\"));
+		System.out.println(isCharacter("\n"));
 //		System.out.println(isCharacter("'JAVA_JUNIOR'"));
 //		System.out.println(isInteger("w"));
 //		System.out.println(isInteger("2.08"));
