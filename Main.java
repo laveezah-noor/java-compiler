@@ -2,8 +2,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.List;
 // packages
 import LexicalAnalyser.lexer;
+import LexicalAnalyser.Tokenizer;
 
 public class Main {
     public static void main(String[] args) {  
@@ -22,7 +24,12 @@ public class Main {
           e.printStackTrace();
         }
         
-    //   System.out.println(data);
-      System.out.println(lexer.lexeme(data));
+        List<String> lexemesList = lexer.lexeme(data); 
+        System.out.println(lexemesList);
+        for (int i = 0; i < lexemesList.size(); i++) {
+            String lexeme = lexemesList.get(i);
+            System.out.print(lexeme);
+            Tokenizer.Tokenizers(lexeme);   
+        }
       }
 }

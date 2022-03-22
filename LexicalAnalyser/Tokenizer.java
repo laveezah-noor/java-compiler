@@ -1,4 +1,5 @@
 package LexicalAnalyser;
+
 import java.util.regex.*;
 
 public class Tokenizer {
@@ -172,7 +173,7 @@ public class Tokenizer {
     }
 
     // Tokenizer Function to identify each lexeme
-    public static void Tokenizers(String lexeme) {
+    public static Token Tokenizers(String lexeme) {
         // Initialize Token Class as arr
         Token arr;
         // Check if lexeme is keyword
@@ -210,6 +211,7 @@ public class Tokenizer {
             arr = new Token(1, "UNDEFINED", lexeme);
             arr.display();
         }
+        return arr;
     }
     // Token Class 
     static class Token {
@@ -243,7 +245,7 @@ public class Tokenizer {
         Tokenizers("b");
         Tokenizers(";");
         Tokenizers("'b'");
-        Tokenizers("\"hello\"");
+        System.out.println(Tokenizers("\"hello\""));
 
     }
 }
