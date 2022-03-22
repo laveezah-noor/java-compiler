@@ -1,9 +1,11 @@
+// import File Modules
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+// packages
+import LexicalAnalyser.lexer;
 
 public class Main {
-    
     public static void main(String[] args) {  
         String data = "";
         try {
@@ -20,6 +22,7 @@ public class Main {
           e.printStackTrace();
         }
         
-      System.out.println(data); 
+    //   System.out.println(data);
+      System.out.println(lexer.lexeme(data));
       }
 }

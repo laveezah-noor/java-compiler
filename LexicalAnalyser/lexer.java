@@ -1,3 +1,4 @@
+package LexicalAnalyser;
 // import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,37 +19,39 @@ public class lexer {
     public static List<String> opList = new ArrayList<>(Arrays.asList(opArray));
     public static List<String> puncList = new ArrayList<>(Arrays.asList(puncArray));
 
-    static void lexeme(String input) {
+    public static List<String> lexeme(String input) {
+        //Creating a List of type String using ArrayList  
+        List<String> list=new ArrayList<String>(); 
         String lexeme = "";
         for (int i = 0; i < input.length(); i++){
             // access each character
             String ch = String.valueOf(input.charAt(i));
-            // System.out.println(ch);
-            // System.out.println(opList.contains(ch));
-            // System.out.println(puncList.contains(ch));
+            // Condtion  to check if the character is not space or operator or punctuation
             if (!ch.contains(" ") & !opList.contains(ch) & !puncList.contains(ch)) {
                 lexeme += ch; 
-                System.out.println("Lexeme: " + lexeme);
-                System.out.println(" char: " + ch );
-            } else if(opList.contains(ch) | !puncList.contains(ch) & !ch.contains(" ")){
-                System.out.print("Lex:"+lexeme);
-                System.out.println("Char: " + ch);
-                Tokenizers(ch);
-                lexeme = "";
-            } else if (ch.contains(" ") | puncList.contains(ch) & lexeme != ""){
-                System.out.println("Space Lexeme: " + lexeme);
-                Tokenizers(lexeme);
+            } 
+            // Condtion  to check if the character is not space and contains operator or punctuation
+            // and lexeme is not empty
+            else if(!ch.contains(" ") & lexeme != "" & lexeme != " " & (opList.contains(ch) | puncList.contains(ch))){
+                // System.out.println("First Else");
+                list.add(lexeme);
+                list.add(ch);
                 lexeme = "";
             }
-            
-            // if (lexeme != ""){
-            //     Tokenizer(lexeme);
-            // }
-            // else if (opList.contains(ch) | puncList.contains(ch)) {
-            //     lexeme = "";
-            // }
+            // Condtion  to check if the character is not space or operator or punctuation
+            else if(opList.contains(ch) | puncList.contains(ch) & !ch.contains(" ")){
+                // System.out.println("Second Else");
+                list.add(ch);
+                lexeme = "";
+            } 
+            // Condtion  to check if the character is space and lexeme is not empty
+            else if (lexeme != "" & lexeme != " " & ch.contains(" ")){
+                // System.out.println("Third Else");
+                list.add(lexeme);
+                lexeme = "";
+            }
         }
-        // System.out.println("Full Lexeme: " + lexeme);
+        return list;
       }
       
       // All the functions to check the lexemes
@@ -325,6 +328,6 @@ public class lexer {
     }
     public static void main(String args[])
 	{
-        lexeme("int 1 + 2 = 5; string 3+5;");
+        System.out.println(lexeme("int 1 + 2 = 5; string 3+5 = 5.3;"));
     }
 }
