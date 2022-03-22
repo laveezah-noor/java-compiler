@@ -4,7 +4,7 @@ package LexicalAnalyser;
 
 import java.util.regex.*;
 
-class GFG {
+public class re {
 
 	// Function to validate the identifier.
 	public static boolean
@@ -12,7 +12,8 @@ class GFG {
 	{
 
 		// Regex to check valid identifier.
-		String regex = "^([a-zA-Z_]?[a-zA-Z\\d_]+)$";
+		// String regex = "^([a-zA-Z_]?[a-zA-Z\\d_]+)$";
+		String regex = "^([a-zA-Z]+)$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
@@ -33,6 +34,7 @@ class GFG {
 		return m.matches();
 	}
 
+	// Function to validate the integer.
     public static boolean
 	isInteger(String identifier)
 	{
@@ -59,6 +61,7 @@ class GFG {
 		return m.matches();
 	}
 
+	// Function to validate the character.
     public static boolean
 	isCharacter(String identifier)
 	{
@@ -84,10 +87,11 @@ class GFG {
 		// Return if the identifier
 		// matched the ReGex
 		
-		System.out.println(identifier);
+		// System.out.println(identifier);
 		return m.matches();
 	}
 
+	// Function to validate the string.
     public static boolean
 	isString(String identifier)
 	{
@@ -114,6 +118,7 @@ class GFG {
 		return m.matches();
 	}
 
+	// Function to validate the boolean.
     public static boolean
 	isFloat(String identifier)
 	{
@@ -140,12 +145,13 @@ class GFG {
 		return m.matches();
 	}
 
+	// Function to validate the keyword.
 	public static boolean
 	isKeyword(String identifier)
 	{
 
 		// Regex to check valid identifier.
-		String[] regex = {"if", "else", "integer", "this", "boolean", "stop", "grab", "throw", "character", "class", "resume", "case",
+		String[] regex = {"if", "else", "int", "string", "this", "boolean", "stop", "grab", "throw", "character", "class", "resume", "case",
 		"default","extends","do","float","for","insert","new","pri","pro","uni","return","static","super","test"};
 
 		// Compile the ReGex
@@ -178,6 +184,26 @@ class GFG {
 //		return m.matches();
 	}
     
+	// Function to validate the operator.
+    public static boolean 
+	isOperator(String identifier) {
+
+        // Regex to check valid identifier.
+        String[] regex = { "+", "-", "/", "*", ";","=" };
+
+        // Compile the ReGex
+        // Pattern p = Pattern.compile(regex);
+
+        boolean exists = false;
+        for (String element : regex) {
+            if (element == identifier) {
+                exists = true;
+                break;
+            }
+        }
+
+        return exists;
+    }
 
 	// Driver Code.
 	public static void main(String args[])
@@ -228,15 +254,3 @@ class GFG {
 
 	}
 }
-// op={"+","-","/","*"};
-// punctuation={";",",",":","{","}","?"};
-// logOp = {">","<","=",">=","<="};
-// assOp= {"+=","-="};
-
-
-// public static void
-// lexer(loop);
-// array [] = lexum [];
-// 		for (int ch = 0, ch+=input{
-// 		System.out.println();
-// 		}

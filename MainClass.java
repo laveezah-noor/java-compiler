@@ -1,15 +1,14 @@
 // import File Modules
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.List;
-// packages
+import java.util.*;
 import LexicalAnalyser.lexer;
 import LexicalAnalyser.Tokenizer;
 
-public class Main {
+public class MainClass {
     public static void main(String[] args) {  
         String data = "";
+        System.out.println("Input");
         try {
           File myObj = new File("code.txt");
           Scanner myReader = new Scanner(myObj);  
@@ -25,10 +24,12 @@ public class Main {
         }
         
         List<String> lexemesList = lexer.lexeme(data); 
+        System.out.println("Lexeme List");
         System.out.println(lexemesList);
+        System.out.println("Tokens");
         for (int i = 0; i < lexemesList.size(); i++) {
             String lexeme = lexemesList.get(i);
-            System.out.print(lexeme);
+            // System.out.print(lexeme);
             Tokenizer.Tokenizers(lexeme);   
         }
       }
