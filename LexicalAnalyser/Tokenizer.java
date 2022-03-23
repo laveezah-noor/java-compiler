@@ -1,45 +1,60 @@
 package LexicalAnalyser;
-// import LexicalAnalyser.GFG;
+import java.util.*;
+
+import java.util.regex.*;
+import LexicalAnalyser.*;
 
 public class Tokenizer {
-
+     
+ 
     // Tokenizer Function to identify each lexeme
     public static Token Tokenizers(String lexeme) {
+        
+    // re RE = new re ( );
+        int line = 1;
+        if (lexeme == ";"){
+            line += 1;
+        }
         // Initialize Token Class as arr
         Token arr;
         // Check if lexeme is keyword
-        if (re.isKeyword(lexeme)) {
-            arr = new Token(1, "KEYWORD", lexeme);
+        if (isKeyword(lexeme)) {
+            arr = new Token(line, "KEYWORD", lexeme);
             arr.display();
         }
         // Check if lexeme is identifier
-         else if (re.isIdentifier(lexeme)) {
-            arr = new Token(1, "ID", lexeme);
+         else if (isIdentifier(lexeme)) {
+            arr = new Token(line, "ID", lexeme);
             arr.display();
         }
         // Check if lexeme is integer
-         else if (re.isInteger(lexeme)) {
-            arr = new Token(1, "INT", lexeme);
+         else if (isInteger(lexeme)) {
+            arr = new Token(line, "INT", lexeme);
             arr.display();
         }
         // Check if lexeme is character
-         else if (re.isCharacter(lexeme)) {
-            arr = new Token(1, "CHAR", lexeme);
+         else if (isCharacter(lexeme)) {
+            arr = new Token(line, "CHAR", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is assignment
+         else if (lexeme == "=") {
+            arr = new Token(line, "ASSIGNMENT", lexeme);
+            arr.display();
+        }
+        // Check if lexeme is assignment
+        else if (lexeme == ";") {
+            arr = new Token(line, "PUNCTUATION", lexeme);
             arr.display();
         }
         // Check if lexeme is string
-         else if (re.isString(lexeme)) {
-            arr = new Token(1, "STRING", lexeme);
-            arr.display();
-        }
-        // Check if lexeme is operator
-         else if (re.isOperator(lexeme)) {
-            arr = new Token(1, "OPERATOR", lexeme);
+         else if (isString(lexeme)) {
+            arr = new Token(line, "STRING", lexeme);
             arr.display();
         }
         // Check if lexeme is undefined
          else {
-            arr = new Token(1, "UNDEFINED", lexeme);
+            arr = new Token(line, "UNDEFINED", lexeme);
             arr.display();
         }
         return arr;
@@ -67,6 +82,207 @@ public class Tokenizer {
             // System.out.println();
         }
     }
+    // Function to validate the identifier.
+	public static boolean
+	isIdentifier(String identifier)
+	{
+
+		// Regex to check valid identifier.
+		// String regex = "^([a-zA-Z_]?[a-zA-Z\\d_]+)$";
+		String regex = "^([a-zA-Z]+)$";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the identifier is empty
+		// return false
+		if (identifier == null) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given identifier
+		// and regular expression.
+		Matcher m = p.matcher(identifier);
+
+		// Return if the identifier
+		// matched the ReGex
+		return m.matches();
+	}
+
+	// Function to validate the integer.
+    public static boolean
+	isInteger(String identifier)
+	{
+
+		// Regex to check valid identifier.
+		String regex = "[+-]?[0-9]+";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the identifier is empty
+		// return false
+		if (identifier == null) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given identifier
+		// and regular expression.
+		Matcher m = p.matcher(identifier);
+
+		// Return if the identifier
+		// matched the ReGex
+		return m.matches();
+	}
+
+	// Function to validate the character.
+    public static boolean
+	isCharacter(String identifier)
+	{
+		// boolean start = identifier.startsWith("'") && identifier.endsWith("'");
+
+		// Regex to check valid identifier.
+		String regex = "^'[\\w\\W]'$";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the identifier is empty
+		// return false
+		if (identifier == null) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given identifier
+		// and regular expression.
+		Matcher m = p.matcher(identifier);
+
+		// Return if the identifier
+		// matched the ReGex
+		
+		// System.out.println(identifier);
+		return m.matches();
+	}
+
+	// Function to validate the string.
+    public static boolean
+	isString(String identifier)
+	{
+
+		// Regex to check valid identifier.
+		String regex = "[\\w\\W]*";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the identifier is empty
+		// return false
+		if (identifier == null) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given identifier
+		// and regular expression.
+		Matcher m = p.matcher(identifier);
+
+		// Return if the identifier
+		// matched the ReGex
+		return m.matches();
+	}
+
+	// Function to validate the boolean.
+    public static boolean
+	isFloat(String identifier)
+	{
+
+		// Regex to check valid identifier.
+		String regex = "^([+-]?\\d+\\.?\\d+)$";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the identifier is empty
+		// return false
+		if (identifier == null) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given identifier
+		// and regular expression.
+		Matcher m = p.matcher(identifier);
+
+		// Return if the identifier
+		// matched the ReGex
+		return m.matches();
+	}
+
+	// Function to validate the keyword.
+	public static boolean
+	isKeyword(String identifier)
+	{
+
+		// Regex to check valid identifier.
+		String[] regex = {"if", "else", "int", "string", "this", "boolean", "stop", "grab", "throw", "character", "class", "resume", "case",
+		"default","extends","do","float","for","insert","new","pri","pro","uni","return","static","super","test"};
+
+		// Compile the ReGex
+//		Pattern p = Pattern.compile(regex);
+
+		boolean exists = false;
+		for (String element : regex) {
+			if (element == identifier) {
+				exists = true;
+				break;
+			}
+		}
+		if(exists == true){
+			return true;
+		} else{
+			return false;
+		}
+//
+//
+//		// If the identifier is empty
+//		// return false
+//		if (identifier == null) {
+//			return false;
+//		}
+//
+//		// Pattern class contains matcher() method
+//		// to find matching between given identifier
+//		// and regular expression.
+//		Matcher m = p.matcher(identifier);
+//
+//		// Return if the identifier
+//		// matched the ReGex
+//		return m.matches();
+	}
+    
+	// Function to validate the operator.
+    public static boolean 
+	isOperator(String identifier) {
+
+        // Regex to check valid identifier.
+        String[] regex = { "+", "-", "/", "*", ";","=" };
+
+        // Compile the ReGex
+        // Pattern p = Pattern.compile(regex);
+
+        boolean exists = false;
+        for (String element : regex) {
+            if (element == identifier) {
+                exists = true;
+                break;
+            }
+        }
+
+        return exists;
+    }
 
     public static void main(String args[]) {
         // Tokenizers("int");
@@ -76,6 +292,15 @@ public class Tokenizer {
         // Tokenizers(";");
         // Tokenizers("'b'");
         // System.out.println(Tokenizers("\"hello\""));
-
+        String[] lexemesList = {"int", "a", "=", "5", ";", "string", "b", "=", "'Hello'", ";", "boolean", "c", "=", "true", ";", "char", "d", "=", "'c'", ";"};
+        List<String> opList = new ArrayList<>(Arrays.asList(lexemesList));
+    
+        for (String string : opList) {
+            Tokenizers(string);
+        }
+		System.out.println("");
+        for (String string : lexemesList) {
+            Tokenizers(string);
+        }
     }
 }

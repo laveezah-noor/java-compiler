@@ -164,8 +164,11 @@ public class re {
 				break;
 			}
 		}
-
-		return exists;
+		if(exists == true){
+			return true;
+		} else{
+			return false;
+		}
 //
 //
 //		// If the identifier is empty

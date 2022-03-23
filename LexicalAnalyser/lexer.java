@@ -55,5 +55,6 @@ public class lexer {
     public static void main(String args[])
 	{
         System.out.println(lexeme("int 1 + 2 = 5; string 3+5 = 5.3;"));
+        // System.out.println(re.isKeyword("int"));
     }
 }

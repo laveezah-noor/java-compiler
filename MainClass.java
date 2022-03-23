@@ -6,6 +6,7 @@ import LexicalAnalyser.lexer;
 import LexicalAnalyser.Tokenizer;
 
 public class MainClass {
+  
     public static void main(String[] args) {  
         String data = "";
         System.out.println("Input");
@@ -24,13 +25,32 @@ public class MainClass {
         }
         
         List<String> lexemesList = lexer.lexeme(data); 
+        String[] lexemeArray = new String[lexemesList.size()];
+        lexemesList.toArray(lexemeArray);
         System.out.println("Lexeme List");
         System.out.println(lexemesList);
+        // System.out.println("Lexeme Array");
+        // System.out.println(lexemeArray);
         System.out.println("Tokens");
+        String[] opArray = {"int", "a", "=", "5", ";", "string", "b", "=", "'Hello'", ";", "boolean", "c", "=", "true", ";", "char", "d", "=", "'c'", ";"};
+        List<String> opList = new ArrayList<>(Arrays.asList(opArray));
+    
+        // for (String string : opList) {
+        //     Tokenizer.Tokenizers(string);
+        // }
+        // for(String str: lexemeArray) {
+        //   // System.out.println(str);
+        //   Tokenizer.Tokenizers(str);
+        // };
+        
         for (int i = 0; i < lexemesList.size(); i++) {
             String lexeme = lexemesList.get(i);
-            // System.out.print(lexeme);
+            String op = opList.get(i);
+            // System.out.print(lexeme==op);
             Tokenizer.Tokenizers(lexeme);   
-        }
+            Tokenizer.Tokenizers(op);   
+
+          }
+
       }
 }
