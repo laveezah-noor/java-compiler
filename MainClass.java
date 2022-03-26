@@ -37,6 +37,7 @@ public class MainClass {
         data += "\n" + dataline;
 
         List<String> lexemeLine = readLexemes(dataline);
+        System.out.println(lexemeLine);
 
         // Looping Through
         for (int i = 0; i < lexemeLine.size(); i++) {
