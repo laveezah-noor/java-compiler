@@ -13,7 +13,7 @@ public class lexer {
     public static String[] assOp = { "+=", "-=" };
 
     public static String[] opArray = new String[] { "+", "-", "/", "*", ">", "<", "=" };
-    public static String[] puncArray = new String[] { ";", ",", ":", "?" };
+    public static String[] puncArray = new String[] { ";", ",", ":", "?", "{", "}", "(", ")" };
 
     public static List<String> opList = new ArrayList<>(Arrays.asList(opArray));
     public static List<String> puncList = new ArrayList<>(Arrays.asList(puncArray));
@@ -59,7 +59,7 @@ public class lexer {
                 lexeme = "";
 
                 if (isSpaceOrEmptyString(ch) & isSpaceOrEmptyString(next) &
-                         !areAlphas) {
+                        !areAlphas) {
                     if (opList.contains(ch) & opList.contains(next)) {
                         lexeme += ch;
                         lexeme += next;
@@ -112,7 +112,7 @@ public class lexer {
             // Condtion to check if the character is not space or operator or punctuation
             else if (opList.contains(ch) | puncList.contains(ch) & !ch.contains(" ")) {
                 // System.out.println("Second Else " + ch + lexeme);
-                
+
                 if (isSpaceOrEmptyString(ch) & isSpaceOrEmptyString(next) & !areAlphas) {
                     if (opList.contains(ch) & opList.contains(next)) {
                         lexeme += ch;

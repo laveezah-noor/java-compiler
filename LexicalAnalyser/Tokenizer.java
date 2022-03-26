@@ -40,7 +40,7 @@ public class Tokenizer {
 			arr.display();
 		}
 		// Check if lexeme is punctuation
-		else if (lexeme.equals(";")) {
+		else if (isPunctuation(lexeme)) {
 			arr = new Token(lineNumber, "PUNCTUATION", lexeme);
 			arr.display();
 		}
@@ -214,9 +214,9 @@ public class Tokenizer {
 		// List to check valid keyword.
 		String[] regex = { "if", "else", "char", "int", "string",
 				"this", "boolean", "stop", "grab", "throw", "character",
-				"class", "resume", "case", "default", "extends", "do", "float", 
+				"class", "resume", "case", "default", "extends", "do", "float",
 				"for", "insert", "new", "pri", "pro", "uni", "return", "static",
-				"super", "test" };
+				"super", "test", "while" };
 
 		// Condition to check if keyword exists in the list
 		boolean exists = false;
@@ -233,7 +233,7 @@ public class Tokenizer {
 	public static boolean isOperator(String operator) {
 
 		// List to check valid operator.
-		String[] regex = { "+", "-", "/", "*", "^" };
+		String[] regex = { "+", "-", "/", "*", "^", "++", "--", ">", "<" };
 
 		// Condition to check if operator exists in the list
 		boolean exists = false;
@@ -247,12 +247,28 @@ public class Tokenizer {
 		return exists;
 	}
 
-	
+	public static boolean isPunctuation(String operator) {
+
+		// List to check valid operator.
+		String[] punc = { ";", "(", ")", "{", "}" };
+
+		// Condition to check if operator exists in the list
+		boolean exists = false;
+		for (String element : punc) {
+			if (element.equals(operator)) {
+				exists = true;
+				break;
+			}
+		}
+
+		return exists;
+	}
+
 	// Function to validate the assignment.
 	public static boolean isAssignment(String assignment) {
 
 		// List to check valid assignment.
-		String[] regex = {"=", "+=", "-=", "/=", "*=", "^=" };
+		String[] regex = { "=", "+=", "-=", "/=", "*=", "^=" };
 
 		// Condition to check if assignment exists in the list
 		boolean exists = false;
