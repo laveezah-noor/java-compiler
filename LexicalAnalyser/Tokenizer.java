@@ -13,6 +13,9 @@ public class Tokenizer {
 		if (isKeyword(lexeme)) {
 			arr = new Token(lineNumber, "KEYWORD", lexeme);
 			arr.display();
+		} else if (isBoolean(lexeme)) {
+			arr = new Token(lineNumber, "BOOLEAN", lexeme);
+			arr.display();
 		}
 		// Check if lexeme is identifier
 		else if (isIdentifier(lexeme)) {
@@ -216,7 +219,7 @@ public class Tokenizer {
 				"this", "boolean", "stop", "grab", "throw", "character",
 				"class", "resume", "case", "default", "extends", "do", "float",
 				"for", "insert", "new", "pri", "pro", "uni", "return", "static",
-				"super", "test", "while" };
+				"super", "test", "while", "public", "private" };
 
 		// Condition to check if keyword exists in the list
 		boolean exists = false;
@@ -250,7 +253,7 @@ public class Tokenizer {
 	public static boolean isPunctuation(String operator) {
 
 		// List to check valid operator.
-		String[] punc = { ";", "(", ")", "{", "}" };
+		String[] punc = { ";", "(", ")", "{", "}", "," };
 
 		// Condition to check if operator exists in the list
 		boolean exists = false;
@@ -273,6 +276,23 @@ public class Tokenizer {
 		// Condition to check if assignment exists in the list
 		boolean exists = false;
 		for (String element : regex) {
+			if (element.equals(assignment)) {
+				exists = true;
+				break;
+			}
+		}
+		return exists;
+	}
+
+	// Function to validate the assignment.
+	public static boolean isBoolean(String assignment) {
+
+		// List to check valid assignment.
+		String[] values = { "True", "False" };
+
+		// Condition to check if assignment exists in the list
+		boolean exists = false;
+		for (String element : values) {
 			if (element.equals(assignment)) {
 				exists = true;
 				break;

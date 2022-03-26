@@ -6,13 +6,22 @@ int a = 0;
 a++;
 --a;
 int b = ++a + --a;
+
 int b += a;
 int c = b*a;
 \\ I am Comment
 int b -= a;
 int b *= a;
 int b /= a;
+
 for (int i = 0; i < 10; i++) {
     a++;
 }
+
+class MyClass(string Value, int NumberValue) {
+    super(True);
+    private int something = 0;
+    public string value = "nothing";
+}
+
 while(a<5){a++;}
