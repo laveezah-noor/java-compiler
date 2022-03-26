@@ -12,7 +12,7 @@ public class lexer {
     public static String[] logOp = { ">", "<", "=" };
     public static String[] assOp = { "+=", "-=" };
 
-    public static String[] opArray = new String[] { "+", "-", "/", "*", ">", "<" };
+    public static String[] opArray = new String[] { "+", "-", "/", "*", ">", "<", "=" };
     public static String[] puncArray = new String[] { ";", ",", ":", "?" };
 
     public static List<String> opList = new ArrayList<>(Arrays.asList(opArray));
@@ -45,66 +45,85 @@ public class lexer {
             // Condtion to check if the character is not space or operator or punctuation
             if (!ch.contains(" ") & !opList.contains(ch) & !puncList.contains(ch)) {
                 lexeme += ch;
-                // if (isSpaceOrEmptyString(ch) & isSpaceOrEmptyString(next) &
-                // isSpaceOrEmptyString(prev) & !areAlphas) {
-                // if (ch.equals("\'")) {
-                // int nextQuoteIndex = i;
-                // for (int j = i + 1; j < input.length(); j++) {
-                // char characterNext = input.charAt(j);
-                // if (characterNext == '\'') {
-                // break;
-                // } else {
-                // nextQuoteIndex += 1;
-                // }
-                // }
-                // list.add("\'" + input.substring(i + 1, nextQuoteIndex + 1) + "\'");
-                // i += nextQuoteIndex - i + 1;
-                // }
-                // // if (!isAlpha(prev)) {
-                // // System.out.println("OPERATOR " + prev);
-                // // }
-                // // if (!isAlpha(next)) {
-                // // System.out.println("OPERATOR " + next);
-                // // }
-                // // if (!isAlpha(ch)) {
-                // // System.out.println("OPERATOR " + ch);
-                // // }
-                // // if (prev.equals("'") & next.equals("'")) {
-                // // list.add(prev + ch + next);
-                // // i += 1;
-                // // }
-                // // if (isAlpha(prev) & isAlpha(ch)) {
-                // // list.add(ch);
-                // // }
-                // } else {
+                // System.out.println(lexeme);
 
-                // lexeme += ch;
-                // }
             }
 
             // Condtion to check if the character is not space and contains operator or
             // punctuation
             // and lexeme is not empty
             else if (!ch.contains(" ") & lexeme != "" & lexeme != " " & (opList.contains(ch) | puncList.contains(ch))) {
-                // System.out.println("First Else");
+                // System.out.println("First Else " + ch + lexeme);
+
                 list.add(lexeme);
-                list.add(ch);
                 lexeme = "";
+
+                if (isSpaceOrEmptyString(ch) & isSpaceOrEmptyString(next) &
+                        isSpaceOrEmptyString(prev) & !areAlphas) {
+                    if (opList.contains(ch) & opList.contains(next)) {
+                        lexeme += ch;
+                        lexeme += next;
+                        list.add(lexeme);
+                        lexeme = "";
+                        i++;
+                    }
+                    else{
+
+                        list.add(ch);
+                                            
+                    }
+                } else if (isSpaceOrEmptyString(ch)) {
+
+                    list.add(ch);
+                    
+                    // lexeme += ch;
+                }
+                    // if (ch.equals("\'")) {
+                    // int nextQuoteIndex = i;
+                    // for (int j = i + 1; j < input.length(); j++) {
+                    // char characterNext = input.charAt(j);
+                    // if (characterNext == '\'') {
+                    // break;
+                    // } else {
+                    // nextQuoteIndex += 1;
+                    // }
+                    // }
+                    // list.add("\'" + input.substring(i + 1, nextQuoteIndex + 1) + "\'");
+                    // i += nextQuoteIndex - i + 1;
+                    // }
+                    // if (!isAlpha(prev)) {
+                    // System.out.println("OPERATOR " + prev);
+                    // }
+                    // if (!isAlpha(next)) {
+                    // System.out.println("OPERATOR " + next);
+                    // }
+                    // if (!isAlpha(ch)) {
+                    // System.out.println("OPERATOR " + ch);
+                    // }
+                    // if (prev.equals("'") & next.equals("'")) {
+                    // list.add(prev + ch + next);
+                    // i += 1;
+                    // }
+                    // if (isAlpha(prev) & isAlpha(ch)) {
+                    // list.add(ch);
+                    // }
+                
             }
 
             // Condtion to check if the character is not space or operator or punctuation
             else if (opList.contains(ch) | puncList.contains(ch) & !ch.contains(" ")) {
-                // System.out.println("Second Else");
+                // System.out.println("Second Else " + ch + lexeme);
                 list.add(ch);
                 lexeme = "";
             }
 
             // Condtion to check if the character is space and lexeme is not empty
             else if (lexeme != "" & lexeme != " " & ch.contains(" ")) {
-                // System.out.println("Third Else");
+                // System.out.println("Third Else " + lexeme);
                 list.add(lexeme);
                 lexeme = "";
             }
+            
 
         }
 
@@ -113,6 +132,7 @@ public class lexer {
     }
 
     public static void main(String args[]) {
-        System.out.println(lexeme("int 1 + 2 = 5; string 3+5 = 5.3;"));
+        System.out.println(lexeme("int 1+2=5; string 3+5=5.3;"));
+        System.out.println(lexeme("int a=5; a++; a--; a+=1; a-=1;"));
     }
 }
