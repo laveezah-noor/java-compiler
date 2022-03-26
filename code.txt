@@ -8,3 +8,7 @@ a++;
 int b = ++a + --a;
 int b += a;
 int c = b*a;
+\\ I am Comment
+int b -= a;
+int b *= a;
+int b /= a;

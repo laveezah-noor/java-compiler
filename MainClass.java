@@ -24,7 +24,7 @@ public class MainClass {
 
     // Reading the data from code.txt file.
     int lineNumber = 1;
-    
+
     try {
 
       // Initializing File Reader
@@ -32,19 +32,23 @@ public class MainClass {
       Scanner myReader = new Scanner(myObj);
 
       while (myReader.hasNextLine()) {
-
         String dataline = myReader.nextLine();
         data += "\n" + dataline;
+        // System.out.println(dataline);
 
-        List<String> lexemeLine = readLexemes(dataline);
-        System.out.println(lexemeLine);
+        // Dealing with Single Line Comments
+        if (dataline.contains("\\")) {
+          // System.out.println("I'm Comment");
+        } else {
+          List<String> lexemeLine = readLexemes(dataline);
+          System.out.println(lexemeLine);
 
-        // Looping Through
-        for (int i = 0; i < lexemeLine.size(); i++) {
-          String lexeme = lexemeLine.get(i);
+          // Looping Through
+          for (int i = 0; i < lexemeLine.size(); i++) {
+            String lexeme = lexemeLine.get(i);
+            Tokenizer.Tokenizers(lexeme, lineNumber);
 
-          Tokenizer.Tokenizers(lexeme, lineNumber);
-
+          }
         }
 
         // Incrementing the line Number
