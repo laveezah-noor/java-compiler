@@ -1,9 +1,6 @@
 package LexicalAnalyser;
 
-import java.util.*;
-
 import java.util.regex.*;
-import LexicalAnalyser.*;
 
 public class Tokenizer {
 
@@ -32,12 +29,17 @@ public class Tokenizer {
 			arr = new Token(lineNumber, "CHAR", lexeme);
 			arr.display();
 		}
-		// Check if lexeme is assignment
-		else if (lexeme.equals("=")) {
-			arr = new Token(lineNumber, "ASSIGNMENT", lexeme);
+		// Check if lexeme is operator
+		else if (isOperator(lexeme)) {
+			arr = new Token(lineNumber, "OPERATOR", lexeme);
 			arr.display();
 		}
 		// Check if lexeme is assignment
+		else if (isAssignment(lexeme)) {
+			arr = new Token(lineNumber, "ASSIGNMENT", lexeme);
+			arr.display();
+		}
+		// Check if lexeme is punctuation
 		else if (lexeme.equals(";")) {
 			arr = new Token(lineNumber, "PUNCTUATION", lexeme);
 			arr.display();
@@ -106,167 +108,160 @@ public class Tokenizer {
 	}
 
 	// Function to validate the integer.
-	public static boolean isInteger(String identifier) {
+	public static boolean isInteger(String integer) {
 
-		// Regex to check valid identifier.
+		// Regex to check valid integer.
 		String regex = "[+-]?[0-9]+";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
 
-		// If the identifier is empty
+		// If the integer is empty
 		// return false
-		if (identifier.equals(null)) {
+		if (integer.equals(null)) {
 			return false;
 		}
 
 		// Pattern class contains matcher() method
-		// to find matching between given identifier
+		// to find matching between given integer
 		// and regular expression.
-		Matcher m = p.matcher(identifier);
+		Matcher m = p.matcher(integer);
 
-		// Return if the identifier
+		// Return if the integer
 		// matched the ReGex
 		return m.matches();
 	}
 
 	// Function to validate the character.
-	public static boolean isCharacter(String identifier) {
-		// boolean start = identifier.startsWith("'") && identifier.endsWith("'");
-
-		// Regex to check valid identifier.
+	public static boolean isCharacter(String character) {
+		// Regex to check valid character.
 		String regex = "^'[\\w\\W]'$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
 
-		// If the identifier is empty
+		// If the character is empty
 		// return false
-		if (identifier.equals(null)) {
+		if (character.equals(null)) {
 			return false;
 		}
 
 		// Pattern class contains matcher() method
-		// to find matching between given identifier
+		// to find matching between given character
 		// and regular expression.
-		Matcher m = p.matcher(identifier);
+		Matcher m = p.matcher(character);
 
-		// Return if the identifier
+		// Return if the character
 		// matched the ReGex
 
-		// System.out.println(identifier);
+		// System.out.println(character);
 		return m.matches();
 	}
 
 	// Function to validate the string.
-	public static boolean isString(String identifier) {
+	public static boolean isString(String string) {
 
-		// Regex to check valid identifier.
+		// Regex to check valid string.
 		String regex = "[\\w\\W]*";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
 
-		// If the identifier is empty
+		// If the string is empty
 		// return false
-		if (identifier.equals(null)) {
+		if (string.equals(null)) {
 			return false;
 		}
 
 		// Pattern class contains matcher() method
-		// to find matching between given identifier
+		// to find matching between given string
 		// and regular expression.
-		Matcher m = p.matcher(identifier);
+		Matcher m = p.matcher(string);
 
-		// Return if the identifier
+		// Return if the string
 		// matched the ReGex
 		return m.matches();
 	}
 
 	// Function to validate the boolean.
-	public static boolean isFloat(String identifier) {
+	public static boolean isFloat(String floatNo) {
 
-		// Regex to check valid identifier.
+		// Regex to check valid floatNo.
 		String regex = "^([+-]?\\d+\\.?\\d+)$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
 
-		// If the identifier is empty
+		// If the string is empty
 		// return false
-		if (identifier.equals(null)) {
+		if (floatNo.equals(null)) {
 			return false;
 		}
 
 		// Pattern class contains matcher() method
-		// to find matching between given identifier
+		// to find matching between given floatNo
 		// and regular expression.
-		Matcher m = p.matcher(identifier);
+		Matcher m = p.matcher(floatNo);
 
-		// Return if the identifier
+		// Return if the float
 		// matched the ReGex
 		return m.matches();
 	}
 
 	// Function to validate the keyword.
-	public static boolean isKeyword(String identifier) {
+	public static boolean isKeyword(String keyword) {
 
-		// Regex to check valid identifier.
-		String[] regex = { "if", "else", "int", "string", "this", "boolean", "stop", "grab", "throw", "character",
-				"class", "resume", "case",
-				"default", "extends", "do", "float", "for", "insert", "new", "pri", "pro", "uni", "return", "static",
+		// List to check valid keyword.
+		String[] regex = { "if", "else", "char", "int", "string",
+				"this", "boolean", "stop", "grab", "throw", "character",
+				"class", "resume", "case", "default", "extends", "do", "float", 
+				"for", "insert", "new", "pri", "pro", "uni", "return", "static",
 				"super", "test" };
 
-		// Compile the ReGex
-		// Pattern p = Pattern.compile(regex);
-
+		// Condition to check if keyword exists in the list
 		boolean exists = false;
 		for (String element : regex) {
-			if (element.equals(identifier)) {
+			if (element.equals(keyword)) {
 				exists = true;
 				break;
 			}
 		}
-		if (exists) {
-			return true;
-		} else {
-			return false;
-		}
-		//
-		//
-		// // If the identifier is empty
-		// // return false
-		// if (identifier.equals(null)) {
-		// return false;
-		// }
-		//
-		// // Pattern class contains matcher() method
-		// // to find matching between given identifier
-		// // and regular expression.
-		// Matcher m = p.matcher(identifier);
-		//
-		// // Return if the identifier
-		// // matched the ReGex
-		// return m.matches();
+		return exists;
 	}
 
 	// Function to validate the operator.
-	public static boolean isOperator(String identifier) {
+	public static boolean isOperator(String operator) {
 
-		// Regex to check valid identifier.
-		String[] regex = { "+", "-", "/", "*", ";", "=" };
+		// List to check valid operator.
+		String[] regex = { "+", "-", "/", "*", "^" };
 
-		// Compile the ReGex
-		// Pattern p = Pattern.compile(regex);
-
+		// Condition to check if operator exists in the list
 		boolean exists = false;
 		for (String element : regex) {
-			if (element.equals(identifier)) {
+			if (element.equals(operator)) {
 				exists = true;
 				break;
 			}
 		}
 
+		return exists;
+	}
+
+	
+	// Function to validate the assignment.
+	public static boolean isAssignment(String assignment) {
+
+		// List to check valid assignment.
+		String[] regex = {"=", "+=", "-=", "/=", "*=", "^=" };
+
+		// Condition to check if assignment exists in the list
+		boolean exists = false;
+		for (String element : regex) {
+			if (element.equals(assignment)) {
+				exists = true;
+				break;
+			}
+		}
 		return exists;
 	}
 
