@@ -1,4 +1,4 @@
 int a = 5;
 string b = 'Hello';
-boolean c = true;
-char d = 'c';
+boolean c=true;
+char d='chaha';

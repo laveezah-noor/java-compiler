@@ -24,6 +24,7 @@ public class MainClass {
 
     // Reading the data from code.txt file.
     int lineNumber = 1;
+    
     try {
 
       // Initializing File Reader
@@ -37,7 +38,7 @@ public class MainClass {
 
         List<String> lexemeLine = readLexemes(dataline);
 
-        // Looping THrough
+        // Looping Through
         for (int i = 0; i < lexemeLine.size(); i++) {
           String lexeme = lexemeLine.get(i);
 
