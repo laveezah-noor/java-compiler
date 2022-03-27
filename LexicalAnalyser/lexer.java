@@ -3,6 +3,9 @@ package LexicalAnalyser;
 // import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.lang.model.util.ElementScanner14;
+
 import java.util.Arrays;
 
 public class lexer {
@@ -44,9 +47,35 @@ public class lexer {
 
             // Condtion to check if the character is not space or operator or punctuation
             if (!ch.contains(" ") & !opList.contains(ch) & !puncList.contains(ch)) {
-                lexeme += ch;
-                // System.out.println(lexeme);
+            
+                // If character is a quotation i.e. string
+                // iterate each char until another quotation arrives
+                if (ch.equals("\"")) {
+                    while (i < input.length()) {
+                        ch = String.valueOf(input.charAt(i));
+                        prev = i != 0 ? String.valueOf(input.charAt(i - 1)) : "";
+                        next = i != input.length() - 1 ? String.valueOf(input.charAt(i + 1)) : "";
+                        
+                        // Add character into lexemes until  
+                        // the next one is quotation
+                        if (!next.equals("\"")) {
+                            lexeme += ch;
+                            i++;
+                        } 
+                        // if upcoming character is quotation then
+                        // add current and upcoming char in lexemes
+                        // and break the loop
+                        else if (next.equals("\"")) {
+                            lexeme += ch;
+                            lexeme += next;
+                            i++;
+                            break;
+                        }
+                    }
+                } else {
 
+                    lexeme += ch;
+                }
             }
 
             // Condtion to check if the character is not space and contains operator or
@@ -138,6 +167,7 @@ public class lexer {
             // Condtion to check if the character is space and lexeme is not empty
             else if (lexeme != "" & lexeme != " " & ch.contains(" ")) {
                 // System.out.println("Third Else " + lexeme);
+
                 list.add(lexeme);
                 lexeme = "";
             }
@@ -157,5 +187,6 @@ public class lexer {
         System.out.println(lexeme("int b = ++a + --a;"));
         System.out.println(lexeme("int b += a;"));
         System.out.println(lexeme("int c = b*a;"));
+        System.out.println(lexeme("print(\"Greater or Equal to 8\");"));
     }
 }

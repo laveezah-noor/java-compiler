@@ -37,3 +37,10 @@ int define functionName(No:int):
     return a; 
 end functionName;
 functionName(5);
+
+//Conditions
+if (a >= 8){
+    print(a + "Greater or Equal to 8");
+} else {
+    print("Not greater");
+}
