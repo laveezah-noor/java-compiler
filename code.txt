@@ -47,19 +47,23 @@ if (a >= 8){
 
 \\ Classes
 static class Token {
-\\ Token class variables
-uni string type;
-uni string value;
-uni int line;
-\\ Token class constructor
-Token(int line, string type, string value) {
-this:line = line;
-this:type = type;
-this:value = value;
+    \\ Token class variables
+    uni string type;
+    uni string value;
+    uni int line;
+    \\ Token class constructor
+    Token(int line, string type, string value) {
+        this:line = line;
+        this:type = type;
+        this:value = value;
+    }
+    \\ display() method to display
+    \\ the Token data
+    uni void display() {
+        print("Token (type:" + type + ", value: " + value + ", line:" + line + ");");
+    }
 }
-\\ display() method to display
-\\ the Token data
-uni void display() {
-print("Token (type:" + type + ", value: " + value + ", line:" + line + ");");
-}
-}
+!^ I'm
+a
+Multi Line
+Comment ^!

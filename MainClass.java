@@ -33,13 +33,26 @@ public class MainClass {
 
       while (myReader.hasNextLine()) {
         String dataline = myReader.nextLine();
-        data += "\n" + dataline;
         // System.out.println(dataline);
-
+        
+        // Dealing with Multi Line Comments 
+        if (dataline.contains("!^")){
+          while (myReader.hasNextLine()) {
+            if (!dataline.contains("^!")) {
+               System.out.println("here"+dataline);
+               dataline += myReader.nextLine();
+               dataline += "\s";
+            } else {
+              dataline += myReader.nextLine();
+              break;
+            }
+          }
+        }
         // Dealing with Single Line Comments
-        if (dataline.contains("\\")) {
+        else if (dataline.contains("\\")) {
           // System.out.println("I'm Comment");
-        } else {
+        } 
+        else {
           List<String> lexemeLine = readLexemes(dataline);
           System.out.println(lexemeLine);
 
@@ -52,6 +65,7 @@ public class MainClass {
         }
 
         // Incrementing the line Number
+        data += "\n" + dataline;
         lineNumber += 1;
       }
 
