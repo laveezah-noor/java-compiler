@@ -216,7 +216,7 @@ public class Tokenizer {
 				"this", "boolean", "stop", "grab", "throw", "character",
 				"class", "resume", "case", "default", "extends", "do", "float",
 				"for", "insert", "new", "pri", "pro", "uni", "return", "static",
-				"super", "test", "while" };
+				"super", "test", "while", "void", "define", "begin", "end", "print" };
 
 		// Condition to check if keyword exists in the list
 		boolean exists = false;
@@ -233,7 +233,8 @@ public class Tokenizer {
 	public static boolean isOperator(String operator) {
 
 		// List to check valid operator.
-		String[] regex = { "+", "-", "/", "*", "^", "++", "--", ">", "<" };
+		String[] regex = { "+", "-", "/", "*", "^", "++", "--", 
+		">", "<", "<=", ">=", "==", "!="};
 
 		// Condition to check if operator exists in the list
 		boolean exists = false;
@@ -250,7 +251,7 @@ public class Tokenizer {
 	public static boolean isPunctuation(String operator) {
 
 		// List to check valid operator.
-		String[] punc = { ";", "(", ")", "{", "}" };
+		String[] punc = { ":", ";", "(", ")", "{", "}" };
 
 		// Condition to check if operator exists in the list
 		boolean exists = false;
@@ -269,7 +270,7 @@ public class Tokenizer {
 
 		// List to check valid assignment.
 		String[] regex = { "=", "+=", "-=", "/=", "*=", "^=" };
-
+ 
 		// Condition to check if assignment exists in the list
 		boolean exists = false;
 		for (String element : regex) {

@@ -12,7 +12,28 @@ int c = b*a;
 int b -= a;
 int b *= a;
 int b /= a;
+
+\\For Loop
 for (int i = 0; i < 10; i++) {
     a++;
 }
+
+\\While Loop
 while(a<5){a++;}
+
+\\Function
+void define functionName():
+    begin;
+    \\code to be executed
+    int a = 5;
+    print(a); 
+end functionName;
+functionName();
+
+int define functionName(No:int):
+    begin;
+    \\code to be executed
+    int a = No;
+    return a; 
+end functionName;
+functionName(5);
