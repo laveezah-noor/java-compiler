@@ -251,7 +251,7 @@ public class Tokenizer {
 	public static boolean isPunctuation(String operator) {
 
 		// List to check valid operator.
-		String[] punc = { ":", ";", "(", ")", "{", "}" };
+		String[] punc = { ":", ";", "(", ")", "{", "}","," };
 
 		// Condition to check if operator exists in the list
 		boolean exists = false;
