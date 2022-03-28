@@ -14,14 +14,57 @@ int b -= a;
 int b *= a;
 int b /= a;
 
+\\For Loop
 for (int i = 0; i < 10; i++) {
     a++;
 }
 
-class MyClass(string Value, int NumberValue) {
-    super(True);
-    private int something = 0;
-    public string value = "nothing";
+\\While Loop
+while(a<5){a++;}
+
+\\Function
+void define functionName():
+    begin;
+    \\code to be executed
+    int a = 5;
+    print(a); 
+end functionName;
+functionName();
+
+int define functionName(No:int):
+    begin;
+    \\code to be executed
+    int a = No;
+    return a; 
+end functionName;
+functionName(5);
+
+//Conditions
+if (a >= 8){
+    print(a + "Greater or Equal to 8");
+} else {
+    print("Not greater");
 }
 
-while(a<5){a++;}
+\\ Classes
+static class Token {
+    \\ Token class variables
+    uni string type;
+    uni string value;
+    uni int line;
+    \\ Token class constructor
+    Token(int line, string type, string value) {
+        this:line = line;
+        this:type = type;
+        this:value = value;
+    }
+    \\ display() method to display
+    \\ the Token data
+    uni void display() {
+        print("Token (type:" + type + ", value: " + value + ", line:" + line + ");");
+    }
+}
+!^ I'm
+a
+Multi Line
+Comment ^!
