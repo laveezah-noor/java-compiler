@@ -89,7 +89,7 @@ public class Tokenizer {
 
 		// Regex to check valid identifier.
 		// String regex = "^([a-zA-Z_]?[a-zA-Z\\d_]+)$";
-		String regex = "^([a-zA-Z]+)$";
+		String regex = "^([_a-zA-Z]+)$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
@@ -170,20 +170,26 @@ public class Tokenizer {
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
 
-		// If the string is empty
-		// return false
-		if (string.equals(null)) {
-			return false;
-		}
+        if (string.valueOf(1).equals("\"")) {
+            
+                    // If the string is empty
+                    // return false
+                    if (string.equals(null)) {
+                        return false;
+                    }
+            
+                    // Pattern class contains matcher() method
+                    // to find matching between given string
+                    // and regular expression.
+                    Matcher m = p.matcher(string);
+            
+                    // Return if the string
+                    // matched the ReGex
+                    return m.matches();
 
-		// Pattern class contains matcher() method
-		// to find matching between given string
-		// and regular expression.
-		Matcher m = p.matcher(string);
-
-		// Return if the string
-		// matched the ReGex
-		return m.matches();
+        } else {
+            return false;
+        }
 	}
 
 	// Function to validate the boolean.
@@ -237,7 +243,7 @@ public class Tokenizer {
 
 		// List to check valid operator.
 		String[] regex = { "+", "-", "/", "*", "^", "++", "--",
-				">", "<", "<=", ">=", "==", "!=" };
+				">", "<", "<=", ">=", "==", "!=", "&&", "||" };
 
 		// Condition to check if operator exists in the list
 		boolean exists = false;

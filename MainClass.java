@@ -41,7 +41,7 @@ public class MainClass {
             if (!dataline.contains("^!")) {
                System.out.println("here"+dataline);
                dataline += myReader.nextLine();
-               dataline += "\s";
+               dataline += "\t";
             } else {
               dataline += myReader.nextLine();
               break;

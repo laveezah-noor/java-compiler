@@ -4,8 +4,6 @@ package LexicalAnalyser;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.util.ElementScanner14;
-
 import java.util.Arrays;
 
 public class lexer {
@@ -15,7 +13,7 @@ public class lexer {
     public static String[] logOp = { ">", "<", "=" };
     public static String[] assOp = { "+=", "-=" };
 
-    public static String[] opArray = new String[] { "+", "-", "/", "*", ">", "<", "=" };
+    public static String[] opArray = new String[] { "+", "-", "/", "*", ">", "<", "=", "&", "|" };
     public static String[] puncArray = new String[] { ";", ",", ":", "?", "{", "}", "(", ")" };
 
     public static List<String> opList = new ArrayList<>(Arrays.asList(opArray));
@@ -47,7 +45,7 @@ public class lexer {
 
             // Condtion to check if the character is not space or operator or punctuation
             if (!ch.contains(" ") & !opList.contains(ch) & !puncList.contains(ch)) {
-            
+
                 // If character is a quotation i.e. string
                 // iterate each char until another quotation arrives
                 if (ch.equals("\"")) {
@@ -55,13 +53,13 @@ public class lexer {
                         ch = String.valueOf(input.charAt(i));
                         prev = i != 0 ? String.valueOf(input.charAt(i - 1)) : "";
                         next = i != input.length() - 1 ? String.valueOf(input.charAt(i + 1)) : "";
-                        
-                        // Add character into lexemes until  
+
+                        // Add character into lexemes until
                         // the next one is quotation
                         if (!next.equals("\"")) {
                             lexeme += ch;
                             i++;
-                        } 
+                        }
                         // if upcoming character is quotation then
                         // add current and upcoming char in lexemes
                         // and break the loop
@@ -82,7 +80,11 @@ public class lexer {
             // punctuation
             // and lexeme is not empty
             else if (!ch.contains(" ") & lexeme != "" & lexeme != " " & (opList.contains(ch) | puncList.contains(ch))) {
-                // System.out.println("First Else " + ch + lexeme);
+
+                // if (ch.equals(".")) {
+                // String regex = "\\d+";
+                // if (prev.matches());
+                // }
 
                 list.add(lexeme);
                 lexeme = "";
@@ -106,41 +108,10 @@ public class lexer {
 
                     // lexeme += ch;
                 }
-                // if (ch.equals("\'")) {
-                // int nextQuoteIndex = i;
-                // for (int j = i + 1; j < input.length(); j++) {
-                // char characterNext = input.charAt(j);
-                // if (characterNext == '\'') {
-                // break;
-                // } else {
-                // nextQuoteIndex += 1;
-                // }
-                // }
-                // list.add("\'" + input.substring(i + 1, nextQuoteIndex + 1) + "\'");
-                // i += nextQuoteIndex - i + 1;
-                // }
-                // if (!isAlpha(prev)) {
-                // System.out.println("OPERATOR " + prev);
-                // }
-                // if (!isAlpha(next)) {
-                // System.out.println("OPERATOR " + next);
-                // }
-                // if (!isAlpha(ch)) {
-                // System.out.println("OPERATOR " + ch);
-                // }
-                // if (prev.equals("'") & next.equals("'")) {
-                // list.add(prev + ch + next);
-                // i += 1;
-                // }
-                // if (isAlpha(prev) & isAlpha(ch)) {
-                // list.add(ch);
-                // }
-
             }
 
             // Condtion to check if the character is not space or operator or punctuation
             else if (opList.contains(ch) | puncList.contains(ch) & !ch.contains(" ")) {
-                // System.out.println("Second Else " + ch + lexeme);
 
                 if (isSpaceOrEmptyString(ch) & isSpaceOrEmptyString(next) & !areAlphas) {
                     if (opList.contains(ch) & opList.contains(next)) {
@@ -165,13 +136,11 @@ public class lexer {
             }
 
             // Condtion to check if the character is space and lexeme is not empty
-            else if (lexeme != "" & lexeme != " " & ch.contains(" ")) {
-                // System.out.println("Third Else " + lexeme);
+            else if (lexeme != "" & lexeme != " " & ch.contains("")) {
 
                 list.add(lexeme);
                 lexeme = "";
             }
-
         }
 
         return list;
@@ -179,14 +148,14 @@ public class lexer {
     }
 
     public static void main(String args[]) {
-        System.out.println(lexeme("int 1+2=5; string 3+5=5.3;"));
-        System.out.println(lexeme("int a=5; a++; a--; a+=1; a-=1;"));
-        System.out.println(lexeme("int a = 0;"));
-        System.out.println(lexeme("a++;"));
-        System.out.println(lexeme("--a;"));
-        System.out.println(lexeme("int b = ++a + --a;"));
-        System.out.println(lexeme("int b += a;"));
-        System.out.println(lexeme("int c = b*a;"));
-        System.out.println(lexeme("print(\"Greater or Equal to 8\");"));
+        System.out.println(lexeme("interface::A_B_C "));
+        // System.out.println(lexeme("int a=5; a++; a--; a+=1; a-=1;"));
+        // System.out.println(lexeme("int a = 0;"));
+        // System.out.println(lexeme("a++;"));
+        // System.out.println(lexeme("--a;"));
+        // System.out.println(lexeme("int b = ++a + --a;"));
+        // System.out.println(lexeme("int b += a;"));
+        // System.out.println(lexeme("int c = b*a;"));
+        // System.out.println(lexeme("print(\"Greater or Equal to 8\");"));
     }
 }
