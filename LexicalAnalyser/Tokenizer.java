@@ -13,13 +13,19 @@ public class Tokenizer {
 		if (isKeyword(lexeme)) {
 			arr = new Token(lineNumber, "KEYWORD", lexeme);
 			arr.display();
-		} else if (isBoolean(lexeme)) {
+		} 
+		else if (isBoolean(lexeme)) {
 			arr = new Token(lineNumber, "BOOLEAN", lexeme);
 			arr.display();
 		}
 		// Check if lexeme is identifier
 		else if (isIdentifier(lexeme)) {
 			arr = new Token(lineNumber, "ID", lexeme);
+			arr.display();
+		}
+		// Check if lexeme is integer
+		else if (isFloat(lexeme)) {
+			arr = new Token(lineNumber, "FLOAT", lexeme);
 			arr.display();
 		}
 		// Check if lexeme is integer
@@ -196,7 +202,7 @@ public class Tokenizer {
 	public static boolean isFloat(String floatNo) {
 
 		// Regex to check valid floatNo.
-		String regex = "^([+-]?\\d+\\.?\\d+)$";
+		String regex = "^([[+-]?\\d*]?\\.\\d+)$";
 
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
