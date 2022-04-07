@@ -55,8 +55,9 @@ public class MainClass {
           for (int i = 0; i < lexemeLine.size(); i++) {
             String lexeme = lexemeLine.get(i);
             Tokenizer.Tokenizers(lexeme, lineNumber);
-            
 
+            Tokenizer.Tokenizers(lexeme, lineNumber).display();
+            
           }
           // Check if the current line does not have closing comment tag
           // and there is a next line present

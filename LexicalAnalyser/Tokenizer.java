@@ -67,7 +67,7 @@ public class Tokenizer {
 	}
 
 	// Token Class
-	static class Token {
+	public static class Token {
 		// Token class variables
 		public String type;
 		public String value;
