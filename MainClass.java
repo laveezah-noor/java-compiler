@@ -31,7 +31,7 @@ public class MainClass {
       File myObj = new File("code.txt");
       Scanner myReader = new Scanner(myObj);
 
-      while (myReader.hasNextLine()) {
+      outerLoop: while (myReader.hasNextLine()) {
         String dataline = myReader.nextLine();
         // System.out.println(dataline);
 
@@ -46,28 +46,35 @@ public class MainClass {
               break;
             }
           }
+
           // Make Lexemes and Tokens of Line before the Comment
           List<String> lexemeLine = readLexemes(newDataLine);
           System.out.println(newDataLine);
           System.out.println(lexemeLine);
 
           // Looping Through
-          for (int i = 0; i < lexemeLine.size(); i++) {
+          innerLoop: for (int i = 0; i < lexemeLine.size(); i++) {
+
             String lexeme = lexemeLine.get(i);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
+
             if (type.equals("UNDEFINED")) {
               System.out.println("Lexical Error at line:" + line);
-              break;
+              break innerLoop;
             } else {
               System.out.println(token);
             }
+            break outerLoop;
+
           }
+
           // Check if the current line does not have closing comment tag
           // and there is a next line present
           if (!dataline.contains("^!") & myReader.hasNextLine()) {
             while (myReader.hasNextLine()) {
+
               // Check if the line has closing tag
               // if not add next line to dataline
               if (!dataline.contains("^!")) {
@@ -75,6 +82,7 @@ public class MainClass {
                 dataline += myReader.nextLine();
                 // System.out.println(dataline);
               }
+
               // if the dataline has closing tag
               else if (dataline.contains("^!")) {
                 newDataLine = "";
@@ -82,10 +90,11 @@ public class MainClass {
                 // check where is the closing tag
                 for (int i = 0; i < dataline.length(); i++) {
                   String next2char = String.valueOf(dataline.charAt(i)) + String.valueOf(dataline.charAt(i + 1));
+
                   if (!next2char.equals("^!")) {
                     newDataLine += dataline.charAt(i);
-                    // System.out.println(newDataLine);
                   }
+
                   // if closing tag is found
                   // make lexemes of the code after the closing tag
                   else {
@@ -104,17 +113,22 @@ public class MainClass {
 
                     // Looping Through
                     for (int j = 0; j < lexemeLine.size(); j++) {
+
                       String lexeme = lexemeLine.get(j);
                       String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
                       int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
                       String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
+
                       if (type.equals("UNDEFINED")) {
+
                         System.out.println("Lexical Error at line:" + line);
                         break;
+
                       } else {
                         System.out.println(token);
                       }
                     }
+
                     break;
                   }
                 }
