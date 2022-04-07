@@ -12,56 +12,56 @@ public class Tokenizer {
 		// Check if lexeme is keyword
 		if (isKeyword(lexeme)) {
 			arr = new Token(lineNumber, "KEYWORD", lexeme);
-			arr.display();
+			// arr.display();
 		} 
 		else if (isBoolean(lexeme)) {
 			arr = new Token(lineNumber, "BOOLEAN", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is identifier
 		else if (isIdentifier(lexeme)) {
 			arr = new Token(lineNumber, "ID", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is integer
 		else if (isFloat(lexeme)) {
 			arr = new Token(lineNumber, "FLOAT", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is integer
 		else if (isInteger(lexeme)) {
 			arr = new Token(lineNumber, "INT", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is character
 		else if (isCharacter(lexeme)) {
 			arr = new Token(lineNumber, "CHAR", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is operator
 		else if (isOperator(lexeme)) {
 			arr = new Token(lineNumber, "OPERATOR", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is assignment
 		else if (isAssignment(lexeme)) {
 			arr = new Token(lineNumber, "ASSIGNMENT", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is punctuation
 		else if (isPunctuation(lexeme)) {
 			arr = new Token(lineNumber, "PUNCTUATION", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is string
 		else if (isString(lexeme)) {
 			arr = new Token(lineNumber, "STRING", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		// Check if lexeme is undefined
 		else {
 			arr = new Token(lineNumber, "UNDEFINED", lexeme);
-			arr.display();
+			// arr.display();
 		}
 		return arr;
 	}
@@ -82,8 +82,8 @@ public class Tokenizer {
 
 		// display() method to display
 		// the Token data
-		public void display() {
-			System.out.println("Token (type:" + type
+		public String display() {
+			return ("Token (type:" + type
 					+ ", value: " + value
 					+ ", line:" + line + ");");
 			// System.out.println();

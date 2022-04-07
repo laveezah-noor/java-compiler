@@ -10,7 +10,7 @@ public class MainClass {
 
   // Function to read the lexemes line by line.
   public static List<String> readLexemes(String data) {
-    String lexemeData = data+" ";
+    String lexemeData = data + " ";
     System.out.println(lexemeData);
     List<String> lexemesList = lexer.lexeme(lexemeData);
     return lexemesList;
@@ -54,10 +54,15 @@ public class MainClass {
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
             String lexeme = lexemeLine.get(i);
-            Tokenizer.Tokenizers(lexeme, lineNumber);
-
-            Tokenizer.Tokenizers(lexeme, lineNumber).display();
-            
+            String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+            int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
+            String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
+            if (type.equals("UNDEFINED")) {
+              System.out.println("Lexical Error at line:" + line);
+              break;
+            } else {
+              System.out.println(token);
+            }
           }
           // Check if the current line does not have closing comment tag
           // and there is a next line present
@@ -100,17 +105,23 @@ public class MainClass {
                     // Looping Through
                     for (int j = 0; j < lexemeLine.size(); j++) {
                       String lexeme = lexemeLine.get(j);
-                      Tokenizer.Tokenizers(lexeme, lineNumber);
-                      
+                      String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+                      int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
+                      String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
+                      if (type.equals("UNDEFINED")) {
+                        System.out.println("Lexical Error at line:" + line);
+                        break;
+                      } else {
+                        System.out.println(token);
+                      }
                     }
-
                     break;
                   }
                 }
               }
             }
             if (!dataline.contains("^!") & !myReader.hasNextLine()) {
-              System.out.println("Lexical Error");
+              System.out.println("Lexical Error at line:" + lineNumber);
             }
           }
         }
@@ -135,9 +146,15 @@ public class MainClass {
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
             String lexeme = lexemeLine.get(i);
-            Tokenizer.Tokenizers(lexeme, lineNumber);
-            
-
+            String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+            int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
+            String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
+            if (type.equals("UNDEFINED")) {
+              System.out.println("Lexical Error at line:" + line);
+              break;
+            } else {
+              System.out.println(token);
+            }
           }
 
         } else {
@@ -148,9 +165,15 @@ public class MainClass {
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
             String lexeme = lexemeLine.get(i);
-            Tokenizer.Tokenizers(lexeme, lineNumber);
-            
-
+            String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+            int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
+            String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
+            if (type.equals("UNDEFINED")) {
+              System.out.println("Lexical Error at line:" + line);
+              break;
+            } else {
+              System.out.println(token);
+            }
           }
         }
 
