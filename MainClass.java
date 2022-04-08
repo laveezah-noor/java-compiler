@@ -53,7 +53,7 @@ public class MainClass {
           System.out.println(lexemeLine);
 
           // Looping Through
-          innerLoop: for (int i = 0; i < lexemeLine.size(); i++) {
+          for (int i = 0; i < lexemeLine.size(); i++) {
 
             String lexeme = lexemeLine.get(i);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
@@ -62,12 +62,10 @@ public class MainClass {
 
             if (type.equals("UNDEFINED")) {
               System.out.println("Lexical Error at line:" + line);
-              break innerLoop;
+              break outerLoop;
             } else {
               System.out.println(token);
             }
-            break outerLoop;
-
           }
 
           // Check if the current line does not have closing comment tag
@@ -96,7 +94,7 @@ public class MainClass {
                   }
 
                   // if closing tag is found
-                  // make lexemes of the code after the closing tag
+                  // make lexemes of the code after the  closing tag
                   else {
                     i += 2;
                     newDataLine = "";
@@ -122,7 +120,7 @@ public class MainClass {
                       if (type.equals("UNDEFINED")) {
 
                         System.out.println("Lexical Error at line:" + line);
-                        break;
+                        break outerLoop;
 
                       } else {
                         System.out.println(token);
@@ -136,6 +134,7 @@ public class MainClass {
             }
             if (!dataline.contains("^!") & !myReader.hasNextLine()) {
               System.out.println("Lexical Error at line:" + lineNumber);
+              break outerLoop;
             }
           }
         }
@@ -147,7 +146,7 @@ public class MainClass {
           for (int j = 0; j < dataline.length(); j++) {
             if (dataline.charAt(j) == '\\' & dataline.charAt(j + 1) == '\\') {
               System.out.println("I'm SingleLine Comment");
-              break;
+              break outerLoop;
             } else {
               newDataLine += dataline.charAt(j);
             }
@@ -165,7 +164,7 @@ public class MainClass {
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
             if (type.equals("UNDEFINED")) {
               System.out.println("Lexical Error at line:" + line);
-              break;
+              break outerLoop;
             } else {
               System.out.println(token);
             }
@@ -184,7 +183,7 @@ public class MainClass {
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
             if (type.equals("UNDEFINED")) {
               System.out.println("Lexical Error at line:" + line);
-              break;
+              break outerLoop;
             } else {
               System.out.println(token);
             }
