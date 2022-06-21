@@ -1,7 +1,7 @@
 int a = 5;
-string b = 'Hello';
-boolean c=true;
-char d='chaha';
+string b = "Hello";
+boolean c=True;
+char d="chaha";
 int a = 0;
 a++;
 --a;
@@ -38,7 +38,7 @@ int define functionName(No:int):
 end functionName;
 functionName(5);
 
-//Conditions
+\\Conditions
 if (a >= 8){
     print(a + "Greater or Equal to 8");
 } else {

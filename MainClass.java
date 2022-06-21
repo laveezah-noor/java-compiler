@@ -18,17 +18,17 @@ public class MainClass {
   }
 
   public static void main(String[] args) {
-
+    List<Tokenizer.Token> tokenList = new ArrayList<Tokenizer.Token>();
+    // Tokenizer.Token[] tokenList = new Tokenizer.Token[1];
     String data = "";
-    System.out.println("Input");
-
+    System.out.println("Input:");
     // Reading the data from code.txt file.
     int lineNumber = 1;
 
     try {
 
       // Initializing File Reader
-      File myObj = new File("code.txt");
+      File myObj = new File("modal.txt");
       Scanner myReader = new Scanner(myObj);
 
       outerLoop: while (myReader.hasNextLine()) {
@@ -49,13 +49,14 @@ public class MainClass {
 
           // Make Lexemes and Tokens of Line before the Comment
           List<String> lexemeLine = readLexemes(newDataLine);
-          System.out.println(newDataLine);
+          // System.out.println(newDataLine);
           System.out.println(lexemeLine);
 
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
 
             String lexeme = lexemeLine.get(i);
+            Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
@@ -65,6 +66,7 @@ public class MainClass {
               break outerLoop;
             } else {
               System.out.println(token);
+              tokenList.add(item);
             }
           }
 
@@ -94,7 +96,7 @@ public class MainClass {
                   }
 
                   // if closing tag is found
-                  // make lexemes of the code after the  closing tag
+                  // make lexemes of the code after the closing tag
                   else {
                     i += 2;
                     newDataLine = "";
@@ -113,6 +115,7 @@ public class MainClass {
                     for (int j = 0; j < lexemeLine.size(); j++) {
 
                       String lexeme = lexemeLine.get(j);
+                      Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
                       String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
                       int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
                       String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
@@ -124,6 +127,7 @@ public class MainClass {
 
                       } else {
                         System.out.println(token);
+                        tokenList.add(item);
                       }
                     }
 
@@ -146,7 +150,7 @@ public class MainClass {
           for (int j = 0; j < dataline.length(); j++) {
             if (dataline.charAt(j) == '\\' & dataline.charAt(j + 1) == '\\') {
               System.out.println("I'm SingleLine Comment");
-              break outerLoop;
+              break;
             } else {
               newDataLine += dataline.charAt(j);
             }
@@ -159,6 +163,7 @@ public class MainClass {
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
             String lexeme = lexemeLine.get(i);
+            Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
@@ -167,6 +172,7 @@ public class MainClass {
               break outerLoop;
             } else {
               System.out.println(token);
+              tokenList.add(item);
             }
           }
 
@@ -178,6 +184,7 @@ public class MainClass {
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
             String lexeme = lexemeLine.get(i);
+            Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
@@ -186,6 +193,7 @@ public class MainClass {
               break outerLoop;
             } else {
               System.out.println(token);
+              tokenList.add(item);
             }
           }
         }
@@ -198,7 +206,8 @@ public class MainClass {
       // Printing all the code
       System.out.println("\n\n All Code: ");
       System.out.println(data);
-
+      System.out.println(tokenList.size());
+      // System.out.println(tokenList);
       myReader.close();
 
     } catch (FileNotFoundException e) {

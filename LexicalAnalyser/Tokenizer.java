@@ -171,12 +171,11 @@ public class Tokenizer {
 	public static boolean isString(String string) {
 
 		// Regex to check valid string.
-		String regex = "[\\w\\W]*";
-
+		// String regex = "[\\w\\W]*";
+		String regex = "^\"[\\w\\W]*\"$";
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
-
-        if (string.valueOf(1).equals("\"")) {
+		// if (string.valueOf(1).equals("\"")) {
             
                     // If the string is empty
                     // return false
@@ -188,14 +187,13 @@ public class Tokenizer {
                     // to find matching between given string
                     // and regular expression.
                     Matcher m = p.matcher(string);
-            
                     // Return if the string
                     // matched the ReGex
                     return m.matches();
 
-        } else {
-            return false;
-        }
+        // } else {
+        //     return false;
+        // }
 	}
 
 	// Function to validate the boolean.
@@ -321,7 +319,9 @@ public class Tokenizer {
 		// Tokenizers("b");
 		// Tokenizers(";");
 		// Tokenizers("'b'");
-		// System.out.println(Tokenizers("\"hello\""));
+		// System.out.println(Tokenizers());
+		String token = Tokenizer.Tokenizers("\"hello\"", 2).display();
+        System.out.println(token);
 		// String[] lexemesList = {"int", "a", "=", "5", ";", "string", "b", "=",
 		// "'Hello'", ";", "boolean", "c", "=", "true", ";", "char", "d", "=", "'c'",
 		// ";"};
