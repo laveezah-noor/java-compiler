@@ -5,14 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import LexicalAnalyser.lexer;
 import LexicalAnalyser.Tokenizer;
-import SyntaxAnalyzer.SyntaxClass;
-
+import LexicalAnalyser.TokenClass;
+import SyntaxAnalyser.Syntax;
 public class MainClass {
 
   // Function to read the lexemes line by line.
   public static List<String> readLexemes(String data) {
     String lexemeData = data + " ";
-    System.out.println(lexemeData);
+    // System.out.println(lexemeData);
     List<String> lexemesList = lexer.lexeme(lexemeData);
     return lexemesList;
 
@@ -22,7 +22,7 @@ public class MainClass {
     List<Tokenizer.Token> tokenList = new ArrayList<Tokenizer.Token>();
     // Tokenizer.Token[] tokenList = new Tokenizer.Token[1];
     String data = "";
-    System.out.println("Input:");
+    // System.out.println("Input:");
     // Reading the data from code.txt file.
     int lineNumber = 1;
 
@@ -34,7 +34,7 @@ public class MainClass {
 
       outerLoop: while (myReader.hasNextLine()) {
         String dataline = myReader.nextLine();
-        // System.out.println(dataline);
+      //  // System.out.println(dataline);
 
         // Dealing with Multi Line Comments
         if (dataline.contains("!^")) {
@@ -42,7 +42,7 @@ public class MainClass {
           for (int i = 0; i < dataline.length(); i++) {
             if (dataline.charAt(i) != '!' & dataline.charAt(i + 1) != '^') {
               newDataLine += dataline.charAt(i);
-              // System.out.println(newDataLine);
+            //  // System.out.println(newDataLine);
             } else {
               break;
             }
@@ -50,8 +50,8 @@ public class MainClass {
 
           // Make Lexemes and Tokens of Line before the Comment
           List<String> lexemeLine = readLexemes(newDataLine);
-          // System.out.println(newDataLine);
-          System.out.println(lexemeLine);
+        //  // System.out.println(newDataLine);
+          // System.out.println(lexemeLine);
 
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
@@ -63,7 +63,7 @@ public class MainClass {
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
 
             if (type.equals("UNDEFINED")) {
-              System.out.println("Lexical Error at line:" + line);
+              // System.out.println("Lexical Error at line:" + line);
               break outerLoop;
             } else {
               System.out.println(token);
@@ -109,8 +109,8 @@ public class MainClass {
 
                     // Make Lexemes and Tokens of Line before the Comment
                     lexemeLine = readLexemes(newDataLine);
-                    System.out.println(newDataLine);
-                    System.out.println(lexemeLine);
+                    // System.out.println(newDataLine);
+                    // System.out.println(lexemeLine);
 
                     // Looping Through
                     for (int j = 0; j < lexemeLine.size(); j++) {
@@ -123,7 +123,7 @@ public class MainClass {
 
                       if (type.equals("UNDEFINED")) {
 
-                        System.out.println("Lexical Error at line:" + line);
+                        // System.out.println("Lexical Error at line:" + line);
                         break outerLoop;
 
                       } else {
@@ -138,7 +138,7 @@ public class MainClass {
               }
             }
             if (!dataline.contains("^!") & !myReader.hasNextLine()) {
-              System.out.println("Lexical Error at line:" + lineNumber);
+              // System.out.println("Lexical Error at line:" + lineNumber);
               break outerLoop;
             }
           }
@@ -150,7 +150,7 @@ public class MainClass {
           String newDataLine = "";
           for (int j = 0; j < dataline.length(); j++) {
             if (dataline.charAt(j) == '\\' & dataline.charAt(j + 1) == '\\') {
-              System.out.println("I'm SingleLine Comment");
+              // System.out.println("I'm SingleLine Comment");
               break;
             } else {
               newDataLine += dataline.charAt(j);
@@ -158,8 +158,8 @@ public class MainClass {
           }
           // Make Lexemes and Tokens of Line before the Comment
           List<String> lexemeLine = readLexemes(newDataLine);
-          System.out.println(newDataLine);
-          System.out.println(lexemeLine);
+          // System.out.println(newDataLine);
+          // System.out.println(lexemeLine);
 
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
@@ -169,7 +169,7 @@ public class MainClass {
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
             if (type.equals("UNDEFINED")) {
-              System.out.println("Lexical Error at line:" + line);
+              // System.out.println("Lexical Error at line:" + line);
               break outerLoop;
             } else {
               System.out.println(token);
@@ -179,8 +179,8 @@ public class MainClass {
 
         } else {
           List<String> lexemeLine = readLexemes(dataline);
-          System.out.println(dataline);
-          System.out.println(lexemeLine);
+          // System.out.println(dataline);
+          // System.out.println(lexemeLine);
 
           // Looping Through
           for (int i = 0; i < lexemeLine.size(); i++) {
@@ -190,7 +190,7 @@ public class MainClass {
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
             if (type.equals("UNDEFINED")) {
-              System.out.println("Lexical Error at line:" + line);
+              // System.out.println("Lexical Error at line:" + line);
               break outerLoop;
             } else {
               System.out.println(token);
@@ -207,14 +207,14 @@ public class MainClass {
       // Printing all the code
       System.out.println("\n\n All Code: ");
       System.out.println(data);
-      System.out.println(tokenList.size());
-      // System.out.println(tokenList);
-      SyntaxClass syntaxClass = new SyntaxClass(tokenList);
+      // System.out.println(tokenList.size());
+    //  // System.out.println(tokenList);
+      Syntax syntaxClass = new Syntax(tokenList);
       syntaxClass.run();
       myReader.close();
 
     } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
+      // System.out.println("An error occurred.");
       e.printStackTrace();
     }
 

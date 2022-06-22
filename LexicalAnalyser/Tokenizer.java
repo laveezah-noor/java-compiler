@@ -176,24 +176,24 @@ public class Tokenizer {
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
 		// if (string.valueOf(1).equals("\"")) {
-            
-                    // If the string is empty
-                    // return false
-                    if (string.equals(null)) {
-                        return false;
-                    }
-            
-                    // Pattern class contains matcher() method
-                    // to find matching between given string
-                    // and regular expression.
-                    Matcher m = p.matcher(string);
-                    // Return if the string
-                    // matched the ReGex
-                    return m.matches();
 
-        // } else {
-        //     return false;
-        // }
+		// If the string is empty
+		// return false
+		if (string.equals(null)) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given string
+		// and regular expression.
+		Matcher m = p.matcher(string);
+		// Return if the string
+		// matched the ReGex
+		return m.matches();
+
+		// } else {
+		// return false;
+		// }
 	}
 
 	// Function to validate the boolean.
@@ -225,11 +225,22 @@ public class Tokenizer {
 	public static boolean isKeyword(String keyword) {
 
 		// List to check valid keyword.
-		String[] regex = { "if", "else", "char", "int", "string",
-				"this", "boolean", "stop", "grab", "throw", "character",
-				"class", "resume", "case", "default", "extends", "do", "float",
-				"for", "insert", "new", "pri", "pro", "uni", "return", "static",
-				"super", "test", "while", "public", "private", "void", "define", "begin", "end", "print" };
+		String[] regex = {
+				"if", "else",
+				"char", "int", "string", "boolean", "float",
+				"this", "stop", "grab", "throw",
+				"switch", "case", "do", "for", "while", "resume", 
+				"class", 
+				"default", "extends",
+				"insert", "new", 
+				// Private
+				"pri", 
+				// Protected
+				"pro", 
+				// Public
+				"uni", 
+				"return", "static",
+				"super", "test", "void", "define", "begin", "end", "print" };
 
 		// Condition to check if keyword exists in the list
 		boolean exists = false;
@@ -321,7 +332,7 @@ public class Tokenizer {
 		// Tokenizers("'b'");
 		// System.out.println(Tokenizers());
 		String token = Tokenizer.Tokenizers("\"hello\"", 2).display();
-        System.out.println(token);
+		System.out.println(token);
 		// String[] lexemesList = {"int", "a", "=", "5", ";", "string", "b", "=",
 		// "'Hello'", ";", "boolean", "c", "=", "true", ";", "char", "d", "=", "'c'",
 		// ";"};
