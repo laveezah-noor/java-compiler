@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import LexicalAnalyser.lexer;
 import LexicalAnalyser.Tokenizer;
+import SyntaxAnalyzer.SyntaxClass;
 
 public class MainClass {
 
@@ -208,6 +209,8 @@ public class MainClass {
       System.out.println(data);
       System.out.println(tokenList.size());
       // System.out.println(tokenList);
+      SyntaxClass syntaxClass = new SyntaxClass(tokenList);
+      syntaxClass.run();
       myReader.close();
 
     } catch (FileNotFoundException e) {
