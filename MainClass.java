@@ -66,7 +66,7 @@ public class MainClass {
               // System.out.println("Lexical Error at line:" + line);
               break outerLoop;
             } else {
-              System.out.println(token);
+              // System.out.println(token);
               tokenList.add(item);
             }
           }
@@ -127,7 +127,7 @@ public class MainClass {
                         break outerLoop;
 
                       } else {
-                        System.out.println(token);
+                        // System.out.println(token);
                         tokenList.add(item);
                       }
                     }
@@ -172,7 +172,7 @@ public class MainClass {
               // System.out.println("Lexical Error at line:" + line);
               break outerLoop;
             } else {
-              System.out.println(token);
+              // System.out.println(token);
               tokenList.add(item);
             }
           }
@@ -193,7 +193,7 @@ public class MainClass {
               // System.out.println("Lexical Error at line:" + line);
               break outerLoop;
             } else {
-              System.out.println(token);
+              // System.out.println(token);
               tokenList.add(item);
             }
           }
@@ -207,7 +207,7 @@ public class MainClass {
       // Printing all the code
       System.out.println("\n\n All Code: ");
       System.out.println(data);
-      // System.out.println(tokenList.size());
+      System.out.println(tokenList.size());
     //  // System.out.println(tokenList);
       Syntax syntaxClass = new Syntax(tokenList);
       syntaxClass.run();
