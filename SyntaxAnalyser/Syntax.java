@@ -10,7 +10,7 @@ public class Syntax {
     String Am = "pvt";
     String Cat;
     String Prnt = null;
-    ArrayList<BodyTable> refDt;
+    // ArrayList<BodyTable> refDt;
     String cTm;
     String cName;
     String cType;
@@ -30,7 +30,7 @@ public class Syntax {
     List access_modifierList = Arrays.asList(ACCESS_MODIFIERS);
     public static final String LOOP_KEYWORDS[] = new String[] { "break", "continue" };
     List loop_keywords = Arrays.asList(LOOP_KEYWORDS);
-    public static final String COM_ASS[] = new String[] { "+=", "-=", "*=", "/=" };
+    public static final String COM_ASS[] = new String[] { "+", "-", "*", "/" };
     List com_ass = Arrays.asList(COM_ASS);
     static int index = 0;
     private final List<Tokenizer.Token> token;
@@ -57,8 +57,8 @@ public class Syntax {
 
     public void run() {
         System.out.println(token.get(index));
-        System.out.println(token.get(index).value);
-        System.out.println(token.get(index).type);
+        System.out.print(token.get(index).value);
+        System.out.print(token.get(index).type);
         System.out.println(token.get(index).line);
 
         if (S()) {
@@ -94,18 +94,17 @@ public class Syntax {
                                 N = token.get(index).value;
                                 index++;
                                 if (inh()) {
-                                    // refDt = semanticClass.create_DT();
-                                    // semanticClass.insert_MT(N, T, Am, Cat, Prnt, refDt);
+                                    // // refDt = semanticClass.create_DT();
+                                    // // semanticClass.insert_MT(N, T, Am, Cat, Prnt, refDt);
                                     empty();
                                     if (token.get(index).value.equals("{")) {
-                                        // semanticClass.createScope();
+                                        // // semanticClass.createScope();
                                         index++;
                                         if (cbody()) {
                                             if (token.get(index).value.equals("}")) {
-                                                // semanticClass.destroyScope();
+                                                // // semanticClass.destroyScope();
                                                 index++;
                                                 if (defs()) {
-
                                                     return true;
                                                 }
                                             }
@@ -128,7 +127,7 @@ public class Syntax {
             }
         } else if (access_modifierList.contains(token.get(index).value)
                 || token.get(index).value.equals("const")
-                || token.get(index).value.equals("conceptual") 
+                || token.get(index).value.equals("conceptual")
                 || token.get(index).value.equals("class")) {
             return true;
         }
@@ -150,7 +149,7 @@ public class Syntax {
 
     boolean defs1() {
         if (token.get(index).value.equals("const")
-                || token.get(index).value.equals("conceptual") 
+                || token.get(index).value.equals("conceptual")
                 || token.get(index).value.equals("class")) {
             if (classdef()) {
                 if (defs()) {
@@ -171,7 +170,7 @@ public class Syntax {
 
     boolean classdef() {
         if (token.get(index).value.equals("const")
-                || token.get(index).value.equals("conceptual") 
+                || token.get(index).value.equals("conceptual")
                 || token.get(index).value.equals("class")) {
             if (cmod()) {
                 if (token.get(index).value.equals("class")) {
@@ -211,12 +210,11 @@ public class Syntax {
             index++;
             return true;
         } else if (token.get(index).value.equals("const")
-                || token.get(index).value.equals("conceptual") 
+                || token.get(index).value.equals("conceptual")
                 || token.get(index).value.equals("class")
-                || datatype_varsList.contains(token(index).value) 
-                || token.get(index).value.equals("void") 
-                ||
-                token.get(index).value.equals("static") 
+                || datatype_varsList.contains(token.get(index).value)
+                || token.get(index).value.equals("void")
+                || token.get(index).value.equals("static")
                 || token.get(index).value.equals("interface")) {
             return true;
         }
@@ -239,9 +237,9 @@ public class Syntax {
 
     boolean cbody() {
         if (access_modifierList.contains(token.get(index).value)
-                || token.get(index).value.equals("void") 
+                || token.get(index).value.equals("void")
                 || token.get(index).value.equals("static")
-                || datatype_varsList.contains(token(index).value)) {
+                || datatype_varsList.contains(token.get(index).value)) {
             if (am()) {
                 if (TM()) {
                     if (cbody1()) {
@@ -250,11 +248,11 @@ public class Syntax {
                 }
             }
         } else if (token.get(index).type.equals("ID")) {
-            if (objdec()) {
-                if (cbody()) {
-                    return true;
-                }
-            }
+            // if (objdec()) {
+            // if (cbody()) {
+            return true;
+            // }
+            // }
         } else if (token.get(index).value.equals("conceptual")) {
             if (conceptual()) {
                 if (cbody()) {
@@ -262,15 +260,16 @@ public class Syntax {
                 }
             }
         } else if (token.get(index).value.equals("ArrayList")) {
-            if (Arraylist()) {
-                return true;
-            }
+            // if (Arraylist()) {
+            // return true;
+            // }
         } else if (token.get(index).value.equals("}")) {
             return true;
         }
         return false;
     }
 
+    // Checks for void
     boolean cbody1() {
         if (token.get(index).value.equals("void")) {
             cType = "void";
@@ -278,13 +277,13 @@ public class Syntax {
             if (token.get(index).type.equals("ID")) {
                 cName = token.get(index).value;
                 index++;
-                if (fn()) {
-                    if (cbody()) {
-                        return true;
-                    }
+                // if (fn()) {
+                if (cbody()) {
+                    return true;
                 }
+                // }
             }
-        } else if (datatype_varsList.contains(token(index).value)) {
+        } else if (datatype_varsList.contains(token.get(index).value)) {
             cType = token.get(index).value;
             index++;
             if (Orarr()) {
@@ -300,9 +299,10 @@ public class Syntax {
         if (token.get(index).type.equals("ID")) {
             cName = token.get(index).value;
             if ("(".equals(token.get(index + 1).value)) {
-            } else {
-                // semanticClass.insert_DT(cName, cType, cTm, Am, refDt);
             }
+            // else {
+            // semanticClass.insert_DT(cName, cType, cTm, Am, refDt);
+            // }
             index++;
 
             if (orFn()) {
@@ -334,21 +334,21 @@ public class Syntax {
             }
         } else if (token.get(index).value.equals("=")) {
             index++;
-            if (arrInit1()) {
-                if (token.get(index).value.equals(";")) {
-                    index++;
-                    return true;
-                }
+            // if (arrInit1()) {
+            if (token.get(index).value.equals(";")) {
+                index++;
+                return true;
             }
+            // }
         } else if (token.get(index).value.equals(",")) {
             index++;
             if (token.get(index).type.equals("ID")) {
                 index++;
-                if (oArrinit()) {
-                    if (list2()) {
-                        return true;
-                    }
-                }
+                // if (oArrinit()) {
+                // if (list2()) {
+                return true;
+                // }
+                // }
             }
         }
         return false;
@@ -387,12 +387,10 @@ public class Syntax {
         } else if (token.get(index).value.equals("=")) {
             if (init()) {
                 if (list()) {
-
                     return true;
                 }
             }
         } else if (token.get(index).value.equals(";")) {
-
             index++;
             return true;
         } else if (token.get(index).value.equals(",")) {
@@ -418,42 +416,42 @@ public class Syntax {
             if (oArrinit()) {
                 return true;
             }
-        } else if (token.get(index).value.equals(";") 
-        || token.get(index).value.equals(",")) {
+        } else if (token.get(index).value.equals(";")
+                || token.get(index).value.equals(",")) {
             return true;
         }
         return false;
     }
 
     boolean oArrinit() {
-        if (token.get(index).value.equals("this") 
-        || token.get(index).type.equals("ID")
-                || token.get(index).value.equals("(") 
-                || datatype_varsList.contains(token(index).value)
+        if (token.get(index).value.equals("this")
+                || token.get(index).type.equals("ID")
+                || token.get(index).value.equals("(")
+                || datatype_varsList.contains(token.get(index).value)
                 // || token.get(index).value.equals("Text")
-                // || token.get(index).value.equals("Float") 
+                // || token.get(index).value.equals("Float")
                 // || token.get(index).value.equals("Letter")
-                // || token.get(index).value.equals("Whole Number") 
+                // || token.get(index).value.equals("Whole Number")
                 // || token.get(index).value.equals("Boolean")
-                || // Or Inc Dec Operator (++, --)
-                || token.get(index).value.equals("++") 
-                || token.get(index).value.equals("--") 
+                // Or Inc Dec Operator (++, --)
+                || token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")
                 || token.get(index).value.equals("!")) {
             if (OE()) {
-                if (!T1.equals("null") && !T2.equals("null") && !opr.equals("null")) {
-                    // T5 = semanticClass.compatibility(T1, T2, opr);
-                    System.out.println("T5 = " + T5);
+                // if (!T1.equals("null") && !T2.equals("null") && !opr.equals("null")) {
+                // // T5 = semanticClass.compatibility(T1, T2, opr);
+                // System.out.println("T5 = " + T5);
 
-                }
+                // }
                 return true;
             }
-        } else if (token.get(index).value.equals("{") 
-        || token.get(index).value.equals("new")) {
+        } else if (token.get(index).value.equals("{")
+                || token.get(index).value.equals("new")) {
             if (arrInit1()) {
                 return true;
             }
-        } else if (token.get(index).value.equals(";") 
-        || token.get(index).value.equals(",")) {
+        } else if (token.get(index).value.equals(";")
+                || token.get(index).value.equals(",")) {
             return true;
         }
         return false;
@@ -470,7 +468,7 @@ public class Syntax {
             }
         } else if (token.get(index).value.equals("new")) {
             index++;
-            if (datatype_varsList.contains(token(index).value)) {
+            if (datatype_varsList.contains(token.get(index).value)) {
                 index++;
                 if (token.get(index).value.equals("[")) {
                     index++;
@@ -494,7 +492,7 @@ public class Syntax {
         } else if (token.get(index).value.equals(",")) {
             index++;
             if (token.get(index).type.equals("ID")) {
-                cName = token.get(index).value;
+                // cName = token.get(index).value;
                 // semanticClass.insert_DT(cName, cType, cTm, Am, refDt);
                 index++;
                 if (init()) {
@@ -547,19 +545,19 @@ public class Syntax {
     }
 
     boolean arrvar() {
-        if (token.get(index).value.equals("this") 
-            || token.get(index).type.equals("ID")
-            || token.get(index).value.equals("(") 
-            || datatype_varsList.contains(token(index).value)
-            // || token.get(index).value.equals("Text")
-            // || token.get(index).value.equals("Float") 
-            // || token.get(index).value.equals("Letter")
-            // || token.get(index).value.equals("Whole Number") 
-            // || token.get(index).value.equals("Boolean")
-            // Or Inc Dec Operator (++, --)
-            || token.get(index).value.equals("++") 
-            || token.get(index).value.equals("--") 
-            || token.get(index).value.equals("!")) {
+        if (token.get(index).value.equals("this")
+                || token.get(index).type.equals("ID")
+                || token.get(index).value.equals("(")
+                || datatype_varsList.contains(token.get(index).value)
+                // || token.get(index).value.equals("Text")
+                // || token.get(index).value.equals("Float")
+                // || token.get(index).value.equals("Letter")
+                // || token.get(index).value.equals("Whole Number")
+                // || token.get(index).value.equals("Boolean")
+                // Or Inc Dec Operator (++, --)
+                || token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")
+                || token.get(index).value.equals("!")) {
             if (OE()) {
                 if (arrvar1()) {
                     return true;
@@ -590,7 +588,7 @@ public class Syntax {
             cTm = "static";
             index++;
             return true;
-        } else if (datatype_varsList.contains(token(index).value)
+        } else if (datatype_varsList.contains(token.get(index).value)
                 || token.get(index).value.equals("void")) {
             cTm = "null";
             return true;
@@ -599,16 +597,16 @@ public class Syntax {
     }
 
     boolean dec() {
-        if (datatype_varsList.contains(token(index).value)) {
+        if (datatype_varsList.contains(token.get(index).value)) {
 
-            if (datatype_varsList.contains(token(index).value)) {
-                Ftype = token.get(index).value;
+            if (datatype_varsList.contains(token.get(index).value)) {
+                // Ftype = token.get(index).value;
                 index++;
                 if (arr()) {
                     if (token.get(index).type.equals("ID")) {
-                        Fname = token.get(index).value;
+                        // Fname = token.get(index).value;
                         // semanticClass.insert_FT(Fname, Ftype);
-                        String N = token.get(index).value;
+                        // String N = token.get(index).value;
                         // T1 = semanticClass.lookup_FT(N);
                         index++;
                         if (init()) {
@@ -623,7 +621,7 @@ public class Syntax {
         return false;
     }
 
-    // If Else Statement Checker Function
+    // // If Else Statement Checker Function
     boolean if_else() {
         if (token.get(index).value.equals("if")) {
             index++;
@@ -655,22 +653,20 @@ public class Syntax {
             if (body()) {
                 return true;
             }
-        }
-        else if (
-        token.get(index).value.equals("Data Format")
-        || access_modifierList.contains(token.get(index).value)
-        || token.get(index).value.equals("++") 
-        || token.get(index).value.equals("--")
-        ||token.get(index).value.equals("throw")
-        ||token.get(index).value.equals("while")
-        ||token.get(index).value.equals("do")
-        ||token.get(index).value.equals("}")
-        ||token.get(index).value.equals("if")
-        ||token.get(index).value.equals("return")
-        ||loop_keywords.contains(token(index).value)){
+        } else if (token.get(index).value.equals("Data Format")
+                || access_modifierList.contains(token.get(index).value)
+                || token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")
+                || token.get(index).value.equals("throw")
+                || token.get(index).value.equals("while")
+                || token.get(index).value.equals("do")
+                || token.get(index).value.equals("}")
+                || token.get(index).value.equals("if")
+                || token.get(index).value.equals("return")
+                || loop_keywords.contains(token.get(index).value)) {
 
-        // return true;
-        // }
+            return true;
+        }
         return false;
     }
 
@@ -710,9 +706,9 @@ public class Syntax {
                 // Or Open Parenthesis
                 || token.get(index).value.equals("(")
                 // Or String Or Float Or Character Or Integer Or Boolean
-                || datatype_varsList.contains(token(index).value)
+                || datatype_varsList.contains(token.get(index).value)
                 // Or Inc Dec Operator (++, --)
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
                 // Or Not Operator (!)
                 || token.get(index).value.equals("!")) {
@@ -725,18 +721,36 @@ public class Syntax {
         return false;
     }
 
+    boolean OE1() {
+        if (token.get(index).value.equals("||")) {
+            index++;
+            if (AE()) {
+                if (OE1()) {
+                    return true;
+                }
+            }
+        } else if (token.get(index).value.equals(";")
+                || token.get(index).value.equals(",")
+                || token.get(index).value.equals(")")
+                || token.get(index).value.equals("]")
+                || token.get(index).value.equals("}")) {
+            return true;
+        }
+        return false;
+    }
+
     boolean AE() {
         if (token.get(index).value.equals("this")
                 || token.get(index).type.equals("ID")
                 // Checks for Open Parenthesis
                 || token.get(index).value.equals("(")
-                || datatype_varsList.contains(token(index).value)
+                || datatype_varsList.contains(token.get(index).value)
                 // || token.get(index).value.equals("Text")
                 // || token.get(index).value.equals("Float")
                 // || token.get(index).value.equals("Letter")
                 // || token.get(index).value.equals("Whole Number")
                 // || token.get(index).value.equals("Boolean")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
                 || token.get(index).value.equals("!")) {
             if (RE()) {
@@ -775,13 +789,13 @@ public class Syntax {
                 || token.get(index).type.equals("ID")
                 // Checks for Open Parenthesis
                 || token.get(index).value.equals("(")
-                || datatype_varsList.contains(token(index).value)
+                || datatype_varsList.contains(token.get(index).value)
                 // || token.get(index).value.equals("Text")
                 // || token.get(index).value.equals("Float")
                 // || token.get(index).value.equals("Letter")
                 // || token.get(index).value.equals("Whole Number")
                 // || token.get(index).value.equals("Boolean")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
                 || token.get(index).value.equals("!")) {
             if (E()) {
@@ -794,8 +808,7 @@ public class Syntax {
     }
 
     boolean RE1() {
-        if (
-                || token.get(index).value.equals("==")
+        if (token.get(index).value.equals("==")
                 || token.get(index).value.equals(">=")
                 || token.get(index).value.equals("<=")
                 || token.get(index).value.equals("<")
@@ -826,13 +839,13 @@ public class Syntax {
                 || token.get(index).type.equals("ID")
                 // Checks for Open Parenthesis
                 || token.get(index).value.equals("(")
-                || datatype_varsList.contains(token(index).value)
+                || datatype_varsList.contains(token.get(index).value)
                 // || token.get(index).value.equals("Text")
                 // || token.get(index).value.equals("Float")
                 // || token.get(index).value.equals("Letter")
                 // || token.get(index).value.equals("Whole Number")
                 // || token.get(index).value.equals("Boolean")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
                 || token.get(index).value.equals("!")) {
             if (T()) {
@@ -845,8 +858,8 @@ public class Syntax {
     }
 
     boolean E1() {
-        if (token.get(index).value.equals("+") 
-        || token.get(index).value.equals("-")) {
+        if (token.get(index).value.equals("+")
+                || token.get(index).value.equals("-")) {
             opr = token.get(index).value;
             index++;
             if (T()) {
@@ -878,13 +891,13 @@ public class Syntax {
                 || token.get(index).type.equals("ID")
                 // Checks for Open Parenthesis
                 || token.get(index).value.equals("(")
-                || datatype_varsList.contains(token(index).value)
+                || datatype_varsList.contains(token.get(index).value)
                 // || token.get(index).value.equals("Text")
                 // || token.get(index).value.equals("Float")
                 // || token.get(index).value.equals("Letter")
                 // || token.get(index).value.equals("Whole Number")
                 // || token.get(index).value.equals("Boolean")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
                 || token.get(index).value.equals("!")) {
             if (F()) {
@@ -934,13 +947,13 @@ public class Syntax {
                 || token.get(index).type.equals("ID")
                 // Checks for Open Parenthesis
                 || token.get(index).value.equals("(")
-                || datatype_varsList.contains(token(index).value)
+                || datatype_varsList.contains(token.get(index).value)
                 // || token.get(index).value.equals("Text")
                 // || token.get(index).value.equals("Float")
                 // || token.get(index).value.equals("Letter")
                 // || token.get(index).value.equals("Whole Number")
                 // || token.get(index).value.equals("Boolean")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
                 || token.get(index).value.equals("!")) {
             // Checks This Statement
@@ -952,7 +965,7 @@ public class Syntax {
                         return true;
                     }
                 }
-            } else if (datatype_varsList.contains(token(index).value)) {
+            } else if (datatype_varsList.contains(token.get(index).value)) {
                 // Check it value is Integer
                 if (Tokenizer.isInteger(token.get(index).value))
                     T2 = "int";
@@ -980,8 +993,8 @@ public class Syntax {
                 }
             }
             // Checks if Inc Dec Operator (++, --)
-            else if (token.get(index).value.equals("++") 
-            || token.get(index).value.equals("--")) {
+            else if (token.get(index).value.equals("++")
+                    || token.get(index).value.equals("--")) {
                 index++;
                 // if token type is identifier
                 if (token.get(index).type.equals("ID")) {
@@ -1012,11 +1025,10 @@ public class Syntax {
             }
         }
         // Checks if Inc Dec Operator (++, --)
-        else if (token.get(index).value.equals("++") 
-        || token.get(index).value.equals("--")) {
+        else if (token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")) {
             index++;
             return true;
-
         } else if (token.get(index).value.equals("[")) {
             index++;
             if (OE()) {
@@ -1040,9 +1052,9 @@ public class Syntax {
     }
 
     boolean PL() {
-        // Checks if variable is initialized 
+        // Checks if variable is initialized
         // Check if it is a datatype var
-        if(datatype_varsList.contains(token(index).value) {
+        if (datatype_varsList.contains(token.get(index).value)) {
             // store the value of token in ftype
             String ftype = token.get(index).value;
             Pl = token.get(index).value;
@@ -1053,14 +1065,14 @@ public class Syntax {
                     String fname = token.get(index).type;
                     // check if datatype var and datatype of token matches
                     if (fname.toLowerCase() == ftype) {
-                        index++;    
+                        index++;
                     }
                     if (PL2()) {
                         return true;
                     }
                 }
             }
-        } 
+        }
         // if token type is identifier
         else if (token.get(index).type.equals("ID")) {
             index++;
@@ -1073,8 +1085,7 @@ public class Syntax {
                     }
                 }
             }
-        }
-        else if (token.get(index).value.equals(")")) {
+        } else if (token.get(index).value.equals(")")) {
             return true;
         }
         return false;
@@ -1087,25 +1098,24 @@ public class Syntax {
         if (token.get(index).value.equals(",")) {
             index++;
             // Check if it is a datatype var
-            if (datatype_varsList.contains(token(index).value) {
+            if (datatype_varsList.contains(token.get(index).value)) {
                 String ftype = token.get(index).value;
                 Pl += "," + token.get(index).value;
                 index++;
-            
+
                 // if token type is identifier
                 if (token.get(index).type.equals("ID")) {
                     String fname = token.get(index).value;
-                    semanticClass.insert_FT(fname, ftype);
+                    // semanticClass.insert_FT(fname, ftype);
                     if (fname.toLowerCase() == ftype) {
-                        index++;    
+                        index++;
                     }
                     if (PL2()) {
                         return true;
                     }
                 }
             }
-        }
-        else if (token.get(index).value.equals(")")) {
+        } else if (token.get(index).value.equals(")")) {
             return true;
         }
         return false;
@@ -1144,19 +1154,19 @@ public class Syntax {
         // if body has only semicolon
         if (token.get(index).value.equals(";")) {
             index++;
-            return t    }
+            return true;
+        }
         // Check if it is a datatype var
-        else if (datatype_varsList.contains(token(index).value)
+        else if (datatype_varsList.contains(token.get(index).value)
                 || token.get(index).type.equals("KEYWORD")
                 || token.get(index).type.equals("ID")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")) {
             if (SST()) {
                 return true;
             }
 
-        }
-        else if (token.get(index).value.equals("{")) {
+        } else if (token.get(index).value.equals("{")) {
             // semanticClass.createScope();
             index++;
             if (MST()) {
@@ -1170,102 +1180,86 @@ public class Syntax {
         return false;
     }
 
-    boolean SST()// if it equals to any keyword
+    boolean SST() {
+        // if it equals to any keyword
         // Check if it is a datatype var
         if (datatype_varsList.contains(token.get(index).value)
                 || token.get(index).type.equals("KEYWORD")
                 || token.get(index).type.equals("ID")
-                || token.get(index).value.equals("++") 
+                || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")) {
             if (dec()) {
                 return true;
-            }
-            else if (if_else()) {
+            } else if (if_else()) {
+                return true;
+            } else if (for_st()) {
+                return true;
+            } else if (dowhile()) {
+                return true;
+            } else if (while_st()) {
+                return true;
+            } else if (Printst()) {
+                return true;
+            } else if (Arraylist()) {
+                return true;
+            } else if (swtcase()) {
+                return true;
+            } else if (returns()) {
+                return true;
+            } else if (_throw()) {
                 return true;
             }
-            else if (for_st()) {
-                return true;
-            }
-            else if (dowhile()) {
-                return true;
-            }
-            else if (while_st()) {
-                return true;
-            }
-            else if (Printst()) {
-                return true;
-            }
-            else if (Arraylist()) {
-                return true;
-            }
-            else if (swtcase()) {
-                return true;
-            }
-            else if (returns()) {
-                return true;
-            }
-            else if (_throw()) {
-                return true;
-            }
-
-            else if (loop_keywords.contains(token(index).value)) {
+        } else if (loop_keywords.contains(token.get(index).value)) {
+            index++;
+            if (token.get(index).value.equals(";")) {
                 index++;
-                if (token.get(index).value.equals(";")) {
-                    index++;
-                    return true;
-                }
-
-            } 
-            // Checks if Inc Dec Operator (++, --)
-            else if (token.get(index).value.equals("++") 
-            || token.get(index).value.equals("--")) {
-                index++;
-            
-                // if token type is identifier
-                if (token.get(index).type.equals("ID")) {
-                    index++;
-                    if (X()) {
-                        if (token.get(index).value.equals(";")) {
-                            return true;
-                        }
-                    }
-                }
-
+                return true;
             }
-            else if (token.get(index).type.equals("ID")) {
-                String N = token.get(index).value;
-                if (token.get(index + 1).type.equals("ID")) {
-                    // if (semanticClass.lookup_MT(N).equals("class")) {
-                        Ftype = N;
+        }
+        // Checks if Inc Dec Operator (++, --)
+        else if (token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")) {
+            index++;
+            // if token type is identifier
+            if (token.get(index).type.equals("ID")) {
+                index++;
+                if (X()) {
+                    if (token.get(index).value.equals(";")) {
+                        return true;
                     }
-                    // else if (semanticClass.lookup_MT(N).equals("interface")) {
-                        System.out.println("Interface instance not allow! ");
-                    }
-                } else
-                    // T1 = semanticClass.lookup_FT(N);
-
-                if (T1.equals("null")
-                        || T1 == null) {
-                    System.out.println("'" + N + "' Undeclared");
                 }
+            }
+        } else if (token.get(index).type.equals("ID")) {
+            String N = token.get(index).value;
+            if (token.get(index + 1).type.equals("ID")) {
+                // if (semanticClass.lookup_MT(N).equals("class")) {
+                // Ftype = N;
+                // }
+                // else if (semanticClass.lookup_MT(N).equals("interface")) {
+                System.out.println("Interface instance not allow! ");
+                // }
+            } else {
+                // T1 = semanticClass.lookup_FT(N);
+                // if(T1.equals("null")||T1==null){
+                // System.out.println("'" + N + "' Undeclared");
+                // }
                 index++;
                 if (other()) {
                     return true;
                 }
             }
-
         }
         return false;
     }
 
     boolean other() {
-        if (token.get(index).type.equals("ID") 
-        || token.get(index).value.equals(".")
-                || token.get(index).value.equals("[") 
+        if (token.get(index).type.equals("ID")
+                || token.get(index).value.equals(".")
+                || token.get(index).value.equals("[")
                 || token.get(index).value.equals("(")
                 // Check if it is Inc Dec Operator
-                || token.get(index).value.equals("++") 
-                || token.get(index).value.equals("--") 
+                || token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")
                 || token.get(index).value.equals("=")) {
             if (token.get(index).type.equals("ID")) {
                 Fname = token.get(index).value;
@@ -1323,16 +1317,17 @@ public class Syntax {
             opr = "=";
             index++;
             if (OE()) {
-                if (!T1.equals("null") && !T2.equals("null") && !opr.equals("null")) {
-                    // T5 = semanticClass.compatibility(T1, T2, opr);
-                    System.out.println("T5 = " + T5);
+                // if (!T1.equals("null") && !T2.equals("null") && !opr.equals("null")) {
+                // // T5 = semanticClass.compatibility(T1, T2, opr);
+                // System.out.println("T5 = " + T5);
 
-                }
+                // }
 
                 return true;
             }
         }
-        if (token.get(index).value.equals("++") || token.get(index).value.equals("--")) {
+        if (token.get(index).value.equals("++") ||
+                token.get(index).value.equals("--")) {
             index++;
             return true;
         }
@@ -1340,19 +1335,19 @@ public class Syntax {
     }
 
     boolean MST() {
-        if (datatype_varsList.contains(token(index).value) 
-        || token.get(index).value.equals("if")
-                || token.get(index).value.equals("do") 
+        if (datatype_varsList.contains(token.get(index).value)
+                || token.get(index).value.equals("if")
+                || token.get(index).value.equals("do")
                 || token.get(index).value.equals("while")
-                || token.get(index).value.equals("for") 
+                || token.get(index).value.equals("for")
                 || token.get(index).value.equals("switch")
-                || token.get(index).type.equals("ID") 
-                || loop_keywords.contains(token(index).value)
+                || token.get(index).type.equals("ID")
+                || loop_keywords.contains(token.get(index).value)
                 || token.get(index).value.equals("return")
-                || token.get(index).value.equals("++") 
-                || token.get(index).value.equals("--") 
+                || token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")
                 || token.get(index).value.equals("print")
-                || token.get(index).value.equals("ArrayList") 
+                || token.get(index).value.equals("ArrayList")
                 || token.get(index).value.equals("throw")) {
             if (SST()) {
                 if (MST()) {
@@ -1366,7 +1361,7 @@ public class Syntax {
     }
 
     boolean C1() {
-        if (datatype_varsList.contains(token(index).value)) {
+        if (datatype_varsList.contains(token.get(index).value)) {
             if (dec()) {
                 return true;
             }
@@ -1402,7 +1397,8 @@ public class Syntax {
                     return true;
                 }
             }
-        } else if (token.get(index).value.equals("++") || token.get(index).value.equals("--")) {
+        } else if (token.get(index).value.equals("++") ||
+                token.get(index).value.equals("--")) {
             index++;
             if (INC_DEC_ST1()) {
                 return true;
@@ -1449,8 +1445,8 @@ public class Syntax {
 
     boolean INC_DEC_ST() {
         // Checks if Inc Dec Operator (++, --)
-        if (token.get(index).value.equals("++") 
-        || token.get(index).value.equals("--")) {
+        if (token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")) {
             index++;
             if (INC_DEC_ST1()) {
                 return true;
@@ -1476,11 +1472,11 @@ public class Syntax {
 
     boolean ASSIGN_OPR() {
         if (token.get(index).value.equals("=")
-                || com_ass.contains(token(index).value)) {
+                || com_ass.contains(token.get(index).value)) {
             if (token.get(index).value.equals("=")) {
                 index++;
                 return true;
-            } else if (com_ass.contains(token(index).value)) {
+            } else if (com_ass.contains(token.get(index).value)) {
                 index++;
                 return true;
             }
@@ -1579,7 +1575,7 @@ public class Syntax {
                 if (token.get(index).value.equals(":")) {
                     index++;
                     if (body()) {
-                        if (loop_keywords.contains(token(index).value)) {
+                        if (loop_keywords.contains(token.get(index).value)) {
                             index++;
                             // or Semicolon, commac, or , close parenthesis
                             if (token.get(index).value.equals(";")) {
@@ -1592,8 +1588,8 @@ public class Syntax {
                     }
                 }
             }
-        } else if (token.get(index).value.equals("default") 
-        || token.get(index).value.equals("}")) {
+        } else if (token.get(index).value.equals("default")
+                || token.get(index).value.equals("}")) {
             return true;
 
         }
@@ -1616,7 +1612,7 @@ public class Syntax {
     }
 
     boolean _throw() {
-        if (token.get(index).value.equals("throw") {
+        if (token.get(index).value.equals("throw")) {
             index++;
             if (token.get(index).value.equals("new")) {
                 index++;
@@ -1624,7 +1620,7 @@ public class Syntax {
                     index++;
                     if (token.get(index).value.equals("String")) {
                         index++;
-                        // or Semicolon 
+                        // or Semicolon
                         if (token.get(index).value.equals(";")) {
                             index++;
                             return true;
@@ -1640,7 +1636,7 @@ public class Syntax {
     boolean returns() {
         if (token.get(index).value.equals("return")) {
             index++;
-            if (returns1) {
+            if (returns1()) {
                 return true;
             }
         }
@@ -1648,20 +1644,20 @@ public class Syntax {
     }
 
     boolean returns1() {
-        // or Semicolon, commac, or , close parenthesis 
+        // or Semicolon, commac, or , close parenthesis
         if (token.get(index).value.equals(";")) {
             index++;
             return true;
         }
         // Check if it is a datatype variable or identifier
         else if (token.get(index).type.equals("ID")
-        ||datatype_varsList.contains(token(index).value)
-                // || token.get(index).value.equals("Text")
-                // || token.get(index).value.equals("Float")
-                // || token.get(index).value.equals("Letter")
-                // || token.get(index).value.equals("Whole Number")
-                // || token.get(index).value.equals("Boolean")
-                ) {
+                || datatype_varsList.contains(token.get(index).value)
+        // || token.get(index).value.equals("Text")
+        // || token.get(index).value.equals("Float")
+        // || token.get(index).value.equals("Letter")
+        // || token.get(index).value.equals("Whole Number")
+        // || token.get(index).value.equals("Boolean")
+        ) {
             if (OE()) {
                 if (returns1()) {
                     return true;
@@ -1697,11 +1693,11 @@ public class Syntax {
                                                 index++;
                                                 if (token.get(index).value.equals(">")) {
                                                     index++;
-                                                    if (token.get(index).value.equals("(")){
+                                                    if (token.get(index).value.equals("(")) {
                                                         index++;
-                                                        if (token.get(index).value.equals(")")){
+                                                        if (token.get(index).value.equals(")")) {
                                                             index++;
-                                                            if (token.get(index).value.equals(";")){
+                                                            if (token.get(index).value.equals(";")) {
                                                                 index++;
                                                                 return true;
                                                             }
@@ -1728,19 +1724,19 @@ public class Syntax {
             if (token.get(index).value.equals("(")) {
                 index++;
                 if (token.get(index).type.equals("ID")
-                || datatype_varsList.contains(token(index).value)
-                        // || token.get(index).value.equals("Text")
-                        // || token.get(index).value.equals("Letter")
-                        // Checks if it is AND operator
-                        // || token.get(index).value.equals("Whole Nu&r")
-                        // || token.get(index).value.equals("Float")
-                        // || token.get(index).value.equals("Boolean")
-                        ) {
+                        || datatype_varsList.contains(token.get(index).value)
+                // || token.get(index).value.equals("Text")
+                // || token.get(index).value.equals("Letter")
+                // Checks if it is AND operator
+                // || token.get(index).value.equals("Whole Nu&r")
+                // || token.get(index).value.equals("Float")
+                // || token.get(index).value.equals("Boolean")
+                ) {
                     index++;
                     // Checks for Close Parenthesis
                     if (token.get(index).value.equals(")")) {
                         index++;
-                        // or Semicolon, commac, or , close parenthesis 
+                        // or Semicolon, commac, or , close parenthesis
                         if (token.get(index).value.equals(";")) {
                             index++;
                             return true;
@@ -1751,19 +1747,20 @@ public class Syntax {
         }
         return false;
     }
-    boolean conceptual(){
-        if (token.get(index).value.equals("conceptual")){
+
+    boolean conceptual() {
+        if (token.get(index).value.equals("conceptual")) {
             index++;
-            if (token.get(index).value.equals("void")){
+            if (token.get(index).value.equals("void")) {
                 index++;
-                if (token.get(index).type.equals("ID")){
+                if (token.get(index).type.equals("ID")) {
                     index++;
                     if (token.get(index).value.equals("(")) {
                         index++;
                         if (PL()) {
                             if (token.get(index).value.equals(")")) {
                                 index++;
-                                if ((token.get(index).value.equals(";"))){
+                                if ((token.get(index).value.equals(";"))) {
                                     index++;
                                     return true;
                                 }
@@ -1772,81 +1769,78 @@ public class Syntax {
                     }
                 }
             }
-        }
-    else if (token.get(index).value.equals("}")){
-        return true;
-    }
-        return false;
-    }
-    boolean implement(){
-        if (token.get(index).value.equals("implement")){
-            index++;
-            if (token.get(index).type.equals("ID")){
-                String N=token.get(index).value;
-                // T=semanticClass.lookup_MT(N);
-                if (T.equals("null")){
-                    System.out.println(N+" Undeclared");
-                }
-                else if(T.equals("class")){
-                    System.out.println(N+" cannot be implement");
-                }
-                else Prnt=N;
-                index++;
-                if (implement1()){
-                    return true;
-                }
-            }
-        }
-        else if (token.get(index).value.equals("{")){
+        } else if (token.get(index).value.equals("}")) {
             return true;
         }
         return false;
     }
-    boolean implement1(){
-        if (token.get(index).value.equals("Comma")){
+
+    boolean implement() {
+        if (token.get(index).value.equals("implement")) {
             index++;
-            if (token.get(index).type.equals("ID")){
-                String N=token.get(index).value;
+            if (token.get(index).type.equals("ID")) {
+                String N = token.get(index).value;
                 // T=semanticClass.lookup_MT(N);
-                if (T.equals("null")){
-                    System.out.println(N+" Undeclared");
+                if (T.equals("null")) {
+                    System.out.println(N + " Undeclared");
+                } else if (T.equals("class")) {
+                    System.out.println(N + " cannot be implement");
+                } else
+                    Prnt = N;
+                index++;
+                if (implement1()) {
+                    return true;
                 }
-                else if(T.equals("class")){
-                    System.out.println(N+" cannot be implement");
-                }
-                else if(Prnt.equals(N)){
+            }
+        } else if (token.get(index).value.equals("{")) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean implement1() {
+        if (token.get(index).value.equals("Comma")) {
+            index++;
+            if (token.get(index).type.equals("ID")) {
+                String N = token.get(index).value;
+                // T=semanticClass.lookup_MT(N);
+                if (T.equals("null")) {
+                    System.out.println(N + " Undeclared");
+                } else if (T.equals("class")) {
+                    System.out.println(N + " cannot be implement");
+                } else if (Prnt.equals(N)) {
                     System.out.println("Same interface implement twice");
-                }
-                else Prnt+=","+N;
+                } else
+                    Prnt += "," + N;
                 index++;
-                if (implement()){
+                if (implement()) {
                     return true;
                 }
             }
-        }
-        else if (token.get(index).value.equals("{")){
+        } else if (token.get(index).value.equals("{")) {
             return true;
         }
         return false;
     }
-    boolean objdec (){
-        if (token.get(index).type.equals("ID")){
+
+    boolean objdec() {
+        if (token.get(index).type.equals("ID")) {
             index++;
-            if(token.get(index).type.equals("ID")){
+            if (token.get(index).type.equals("ID")) {
                 index++;
-                if(token.get(index).value.equals("=")){
+                if (token.get(index).value.equals("=")) {
                     index++;
-                    if(token.get(index).value.equals("new")){
+                    if (token.get(index).value.equals("new")) {
                         index++;
-                        if(token.get(index).type.equals("ID")){
+                        if (token.get(index).type.equals("ID")) {
                             index++;
                             if (token.get(index).value.equals("(")) {
                                 index++;
                                 if (PL()) {
                                     if (token.get(index).value.equals(")")) {
                                         index++;
-                                        if (token.get(index).value.equals(";")){
-                                            index ++;
+                                        if (token.get(index).value.equals(";")) {
+                                            index++;
                                             return true;
                                         }
                                     }
@@ -1859,45 +1853,48 @@ public class Syntax {
         }
         return false;
     }
-    boolean inh(){
+
+    // Checks for Inherit Statement
+    boolean inh() {
         if (token.get(index).value.equals("inherit")) {
             index++;
-            if (token.get(index).type.equals("ID")){
-                String N=token.get(index).value;
+            if (token.get(index).type.equals("ID")) {
+                String N = token.get(index).value;
                 // T=semanticClass.lookup_MT(N);
-                if (T.equals("null")){
-                    System.out.println(N+" Undeclared");
+                if (T.equals("null")) {
+                    System.out.println(N + " Undeclared");
                 }
                 // else if(T.equals("class")&&semanticClass.Cat.equals("const")){
-                    System.out.println("Const class cannot be inherited ");
-                }
-                else Prnt=N;
+                // System.out.println("Const class cannot be inherited ");
+                // }
+                else
+                    Prnt = N;
                 index++;
                 return true;
             }
-        }
-        else if(token.get(index).value.equals("implement")
-        ||token.get(index).value.equals("{")){
+        } else if (token.get(index).value.equals("implement")
+                || token.get(index).value.equals("{")) {
             return true;
         }
         return false;
     }
-    boolean interfacedef(){
-        if (token.get(index).value.equals("interface")){
-            T=token.get(index).value;
+
+    boolean interfacedef() {
+        if (token.get(index).value.equals("interface")) {
+            T = token.get(index).value;
             index++;
-            if (token.get(index).type.equals("ID")){
-                N=token.get(index).value;
+            if (token.get(index).type.equals("ID")) {
+                N = token.get(index).value;
                 // refDt=semanticClass.create_DT();
                 // semanticClass.insert_MT(N,T,Am,Cat,Prnt,refDt);
                 empty();
                 index++;
 
-                if (token.get(index).value.equals("{")){
+                if (token.get(index).value.equals("{")) {
                     // semanticClass.createScope();
                     index++;
-                    if (interfacebody()){
-                        if (token.get(index).value.equals("}")){
+                    if (interfacebody()) {
+                        if (token.get(index).value.equals("}")) {
                             // semanticClass.destroyScope();
                             index++;
                             return true;
@@ -1908,78 +1905,91 @@ public class Syntax {
         }
         return false;
     }
-    boolean interfacebody(){
-        if (token.get(index).value.equals("conceptual")){
-            if (conceptual()){
-                if (interfacebody()){
+
+    boolean interfacebody() {
+        if (token.get(index).value.equals("conceptual")) {
+            if (conceptual()) {
+                if (interfacebody()) {
                     return true;
                 }
             }
-        }
-        else if(dec()){
-            if (interfacebody()){
+        } else if (dec()) {
+            if (interfacebody()) {
                 return true;
             }
-        }
-        else if (token.get(index).value.equals("}")){
+        } else if (token.get(index).value.equals("}")) {
 
             return true;
         }
         return false;
     }
-    boolean Y(){
-        if (token.get(index).value.equals(".")){
+
+    boolean Y() {
+        if (token.get(index).value.equals(".")) {
             index++;
-            if ((token.get(index).type.equals("ID"))){
+            if ((token.get(index).type.equals("ID"))) {
                 index++;
-                if (Y()){
+                if (Y()) {
                     return true;
                 }
             }
-        }
-        else if(token.get(index).value.equals("[")){
+        } else if (token.get(index).value.equals("[")) {
             index++;
-            if (OE()){
-                if (token.get(index).value.equals("]")){
+            if (OE()) {
+                if (token.get(index).value.equals("]")) {
                     index++;
-                    if (token.get(index).value.equals(".")){
+                    if (token.get(index).value.equals(".")) {
                         index++;
-                        if ((token.get(index).type.equals("ID"))){
+                        if ((token.get(index).type.equals("ID"))) {
                             index++;
-                            if (Y()){
+                            if (Y()) {
                                 return true;
                             }
                         }
                     }
                 }
             }
-        }
-        else if(token.get(index).value.equals("(")){
+        } else if (token.get(index).value.equals("(")) {
             return true;
         }
         return false;
     }
-    boolean X(){
-        if(token.get(index).value.equals(".")
-        ||token.get(index).value.equals("(")
-                ||token.get(index).value.equals("{")
-                ||token.get(index).value.equals("[")){
-            if(token.get(index).value.equals(".")){
+
+    boolean X() {
+        if (token.get(index).value.equals(".")
+                || token.get(index).value.equals("(")
+                || token.get(index).value.equals("{")
+                || token.get(index).value.equals("[")) {
+            if (token.get(index).value.equals(".")) {
                 index++;
-                if (token.get(index).type.equals("ID")){
+                if (token.get(index).type.equals("ID")) {
                     index++;
-                    if (X()){
+                    if (X()) {
                         return true;
                     }
                 }
-
-            }
-            else if (token.get(index).value.equals("[")){
+            } else if (token.get(index).value.equals("[")) {
                 index++;
-                if (OE()){
-                    if (token.get(index).value.equals("]")){
+                if (OE()) {
+                    if (token.get(index).value.equals("]")) {
                         index++;
-                        if(token.get(index).value.equals(".")) {
+                        if (token.get(index).value.equals(".")) {
+                            index++;
+                            if (token.get(index).type.equals("ID")) {
+                                index++;
+                                if (X()) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (token.get(index).value.equals("(")) {
+                index++;
+                if (PL()) {
+                    if (token.get(index).value.equals(")")) {
+                        index++;
+                        if (token.get(index).value.equals(".")) {
                             index++;
                             if (token.get(index).type.equals("ID")) {
                                 index++;
@@ -1991,48 +2001,33 @@ public class Syntax {
                     }
                 }
             }
-            else if (token.get(index).value.equals("(")){
-                index++;
-                if (PL()){
-                    if (token.get(index).value.equals(")")){
-                        index++;
-                        if (token.get(index).value.equals(".")){
-                            index++;
-                            if (token.get(index).type.equals("ID")){
-                                index++;
-                                if (X()){
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else if (==
-        ||token.get(index).type.equals("ID")
-        ||token.get(index).value.equals("=")
-        ||token.get(index).value.equals(";")
-                ||token.get(index).value.equals(")")
-                ||token.get(index).value.equals("++") 
-                || token.get(index).value.equals("--")){
+        } else if (token.get(index).value.equals("==")
+                || token.get(index).value.equals(">=")
+                || token.get(index).value.equals("<=")
+                || token.get(index).type.equals("ID")
+                || token.get(index).value.equals("=")
+                || token.get(index).value.equals(";")
+                || token.get(index).value.equals(")")
+                || token.get(index).value.equals("++")
+                || token.get(index).value.equals("--")) {
             return true;
         }
         return false;
     }
-    boolean Th(){
-        if (token.get(index).value.equals("this")){
+
+    boolean Th() {
+        if (token.get(index).value.equals("this")) {
             index++;
-            if (token.get(index).value.equals(".")){
+            if (token.get(index).value.equals(".")) {
                 index++;
                 return true;
             }
-        }
-        else if (token.get(index).type.equals("ID")){
+        } else if (token.get(index).type.equals("ID")) {
             return true;
         }
         return false;
     }
+
     public static void main(String args[]) {
 
     }
