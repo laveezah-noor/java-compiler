@@ -33,23 +33,9 @@ public class Syntax {
     public static final String COM_ASS[] = new String[] { "+", "-", "*", "/" };
     List com_ass = Arrays.asList(COM_ASS);
     static int index = 0;
+    public static final String P_STRINGS[] = new String[] {};
+    List parser = Arrays.asList(P_STRINGS);
     private final List<Tokenizer.Token> token;
-
-    public void Dtempty() {
-        this.cName = null;
-        this.cTm = null;
-        this.cType = null;
-        this.Am = "pvt";
-        this.Pl = null;
-    }
-
-    public void empty() {
-        this.T = null;
-        this.N = null;
-        this.Am = "pvt";
-        this.Cat = null;
-        this.Prnt = null;
-    }
 
     public Syntax(List<Tokenizer.Token> token) {
         this.token = token;
@@ -99,15 +85,19 @@ public class Syntax {
                         if (token.get(index).value.equals("class")) {
                             T = "class";
                             index++;
+                            // parser.add(token.get(index).value);
                             if (token.get(index).type.equals("ID")) {
                                 N = token.get(index).value;
                                 index++;
+                                // parser.add(token.get(index).type);
                                 if (inh()) {
                                     if (token.get(index).value.equals("{")) {
                                         index++;
+                                        // parser.add(token.get(index).value);
                                         if (cbody()) {
                                             if (token.get(index).value.equals("}")) {
                                                 index++;
+                                                // parser.add(token.get(index).value);
                                                 if (defs()) {
                                                     return true;
                                                 }
@@ -160,8 +150,8 @@ public class Syntax {
                     }
                 }
             }
-        } 
-        if(token.get(index).type=="$"){
+        }
+        if (token.get(index).type == "$") {
             return true;
         }
         System.out.println("here" + token.get(index).value + token.get(index).type);
@@ -382,18 +372,35 @@ public class Syntax {
             if (accessModifier()) {
                 // Check for static/void/DT
                 if (Static()) {
-                    if (cbody1()) {
-                        return true;
+                    if (accessModifier()) {
+
+                        if (cbody1()) {
+                            return true;
+                        }
                     }
                 }
             }
             // checks for id
         } else if (token.get(index).type.equals("ID")) {
-            if (objdec()) {
-                if (cbody()) {
+            System.out.println("id " + token.get(index).value + " " + token.get(index).value.equals("("));
+            if (objdec() || token.get(index).value.equals("(")) {
+                System.out.println("obj dec inner");
+                if (token.get(index).type.equals("(")) {
+                    index++;
+                    if (token.get(index).type.equals(")")) {
+                        index++;
+                        if (token.get(index).type.equals(";")) {
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+                else if (cbody()) {
                     return true;
                 }
+                
             }
+
         } else if (objdec()) {
             if (cbody()) {
                 return true;
@@ -414,12 +421,15 @@ public class Syntax {
             index++;
             if (token.get(index).value.equals(":")) {
                 index++;
-            System.out.println("iamhereincbody1 " + token.get(index).value);
-            if (Orarr()) {
-                return true;
+                System.out.println("iamhereincbody1 " + token.get(index).value);
+                if (Orarr()) {
+                    return true;
+                }
             }
-            }
-        }System.out.println("out of cbody");
+        } else {
+            return true;
+        }
+        System.out.println("out of cbody");
         return false;
 
     }
@@ -510,7 +520,6 @@ public class Syntax {
             // Check if it is a datatype var
             if (PL()) {
                 if (token.get(index).value.equals(")")) {
-                    // Dtempty();
                     index++;
                     if (token.get(index).value.equals("{")) {
                         index++;
@@ -559,7 +568,7 @@ public class Syntax {
     }
 
     boolean init() {
-        if (token.get(index).value.equals("=")) {
+        if (token.get(index).value.equals("=") || token.get(index).value.contains("=")) {
             opr = "=";
             index++;
             if (oArrinit()) {
@@ -2073,7 +2082,7 @@ public class Syntax {
             index++;
             return true;
         }
-        System.out.println("out of objdec");
+        System.out.println("out of objdec" + token.get(index).value);
         return false;
     }
 
