@@ -58,6 +58,11 @@ public class Tokenizer {
 			arr = new Token(lineNumber, "STRING", lexeme);
 			// arr.display();
 		}
+		// Check if lexeme is $
+		else if (lexeme=="$") {
+			arr = new Token(lineNumber, "$", lexeme);
+			// arr.display();
+		}
 		// Check if lexeme is undefined
 		else {
 			arr = new Token(lineNumber, "UNDEFINED", lexeme);

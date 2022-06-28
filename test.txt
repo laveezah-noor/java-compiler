@@ -1,0 +1,39 @@
+uni class x inherit y
+{static uni int x;
+uni final int a(int,int)
+{
+int x;
+return 0;
+}
+uni static void main()
+{
+int x;
+count(int x;;)
+{
+x++;
+}
+if(x<0)
+x-=3;
+else
+{
+x+=3;
+}
+int y=a+5*5-3*fn(x)||5&&4;
+A a=new A();
+a.fn();
+}
+static uni int y;
+override uni final int b(int,float,string,char,bool)
+{
+int x;
+return 0;
+int[x][y]={1,4,6,7,8};
+char a='\n';
+string s= "hrpfdyk5789954 \"";
+}
+}
+
+class A
+{
+A();
+}

@@ -8,7 +8,7 @@ import LexicalAnalyser.Tokenizer;
 import LexicalAnalyser.TokenClass;
 import SyntaxAnalyser.Syntax;
 public class MainClass {
-
+  static String T = "true";
   // Function to read the lexemes line by line.
   public static List<String> readLexemes(String data) {
     String lexemeData = data + " ";
@@ -29,7 +29,7 @@ public class MainClass {
     try {
 
       // Initializing File Reader
-      File myObj = new File("modal.txt");
+      File myObj = new File("test.txt");
       Scanner myReader = new Scanner(myObj);
 
       outerLoop: while (myReader.hasNextLine()) {
@@ -59,11 +59,13 @@ public class MainClass {
             String lexeme = lexemeLine.get(i);
             Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+            String value = Tokenizer.Tokenizers(lexeme, lineNumber).value;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
 
             if (type.equals("UNDEFINED")) {
-              // System.out.println("Lexical Error at line:" + line);
+              T = "false";
+              System.out.println("Lexical Error at line:" + line + " " + type + " " + value);
               break outerLoop;
             } else {
               // System.out.println(token);
@@ -118,12 +120,14 @@ public class MainClass {
                       String lexeme = lexemeLine.get(j);
                       Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
                       String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+                      String value = Tokenizer.Tokenizers(lexeme, lineNumber).value;
                       int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
                       String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
 
                       if (type.equals("UNDEFINED")) {
 
-                        // System.out.println("Lexical Error at line:" + line);
+                        T = "false";
+                        System.out.println("Lexical Error at line:" + line + " " + type + " " + value);
                         break outerLoop;
 
                       } else {
@@ -166,10 +170,12 @@ public class MainClass {
             String lexeme = lexemeLine.get(i);
             Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+            String value = Tokenizer.Tokenizers(lexeme, lineNumber).value;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
             if (type.equals("UNDEFINED")) {
-              // System.out.println("Lexical Error at line:" + line);
+              T = "false";
+              System.out.println("Lexical Error at line:" + line + " " + type + " " + value);
               break outerLoop;
             } else {
               // System.out.println(token);
@@ -187,10 +193,12 @@ public class MainClass {
             String lexeme = lexemeLine.get(i);
             Tokenizer.Token item = Tokenizer.Tokenizers(lexeme, lineNumber);
             String type = Tokenizer.Tokenizers(lexeme, lineNumber).type;
+            String value = Tokenizer.Tokenizers(lexeme, lineNumber).value;
             int line = Tokenizer.Tokenizers(lexeme, lineNumber).line;
             String token = Tokenizer.Tokenizers(lexeme, lineNumber).display();
             if (type.equals("UNDEFINED")) {
-              // System.out.println("Lexical Error at line:" + line);
+              T = "false";
+              System.out.println("Lexical Error at line:" + line + " " + type + " " + value);
               break outerLoop;
             } else {
               // System.out.println(token);
@@ -207,11 +215,17 @@ public class MainClass {
       // Printing all the code
       System.out.println("\n\n All Code: ");
       System.out.println(data);
-      System.out.println(tokenList.size());
+      // System.out.println(tokenList.size());
     //  // System.out.println(tokenList);
+    // Tokenizer.Token arr = new Tokenizer.Token(tokenList.size()+1, "$", "$");
+		if (T=="true"){
+      Tokenizer.Token arr = Tokenizer.Tokenizers("$", tokenList.size()+1);
+      tokenList.add(arr);  
       Syntax syntaxClass = new Syntax(tokenList);
-      syntaxClass.run();
-      myReader.close();
+        syntaxClass.run();
+        
+    }	
+    myReader.close();
 
     } catch (FileNotFoundException e) {
       // System.out.println("An error occurred.");

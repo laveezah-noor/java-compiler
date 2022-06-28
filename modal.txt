@@ -42,11 +42,11 @@ call functionName();
 \\functionName(5);
 
 \\Conditions
-\\if (a >= 8){
-\\    print(a + "Greater or Equal to 8");
-\\} else {
-\\    print("Not greater");
-\\}
+if (a >= 8){
+    print(a);
+} else {
+    print("Not greater");
+}
 
 \\ Classes
 class Token {
@@ -64,8 +64,8 @@ class Token {
     \\ display() method to display
     \\ the Token data
     uni void display() {
-        print("Token (type:" + type + ", value: " + value + ", line:" + line + ");");
-    }
+        print("Token");
+    };
 }
 !^ I'm
 a

@@ -56,10 +56,10 @@ public class Syntax {
     }
 
     public void run() {
-        System.out.println(token.get(index));
-        System.out.print(token.get(index).value);
-        System.out.print(token.get(index).type);
-        System.out.println(token.get(index).line);
+        // System.out.println(token.get(index));
+        // System.out.print(token.get(index).value);
+        // System.out.print(token.get(index).type);
+        // System.out.println(token.get(index).line);
 
         if (S()) {
             if (token.get(index).type.equals("$")) {
@@ -107,7 +107,6 @@ public class Syntax {
                                         index++;
                                         if (cbody()) {
                                             if (token.get(index).value.equals("}")) {
-                                                // // semanticClass.destroyScope();
                                                 index++;
                                                 if (defs()) {
                                                     return true;
@@ -161,6 +160,9 @@ public class Syntax {
                     }
                 }
             }
+        } 
+        if(token.get(index).type=="$"){
+            return true;
         }
         System.out.println("here" + token.get(index).value + token.get(index).type);
 
@@ -408,8 +410,18 @@ public class Syntax {
             }
         } else if (token.get(index).value.equals("}")) {
             return true;
-        }
+        } else if (token.get(index).value.equals("this")) {
+            index++;
+            if (token.get(index).value.equals(":")) {
+                index++;
+            System.out.println("iamhereincbody1 " + token.get(index).value);
+            if (Orarr()) {
+                return true;
+            }
+            }
+        }System.out.println("out of cbody");
         return false;
+
     }
 
     boolean cbody1() {
@@ -1378,7 +1390,7 @@ public class Syntax {
                 return true;
             } else if (_throw()) {
                 return true;
-            }else if (token.get(index).value.equals("call")) {
+            } else if (token.get(index).value.equals("call")) {
                 // System.out.println("call=> "+token.get(index).value);
                 index++;
                 if (token.get(index).type.equals("ID")) {
@@ -1640,7 +1652,7 @@ public class Syntax {
                 return true;
             }
         }
-
+        System.out.println("OUT OF INC");
         return false;
     }
 
@@ -1920,7 +1932,7 @@ public class Syntax {
             if (token.get(index).value.equals("(")) {
                 index++;
                 if (token.get(index).type.equals("ID")
-                        || datatypeList.contains(token.get(index).value)
+                        || datatypeList.contains(token.get(index).type.toLowerCase())
                 // || token.get(index).value.equals("Text")
                 // || token.get(index).value.equals("Letter")
                 // Checks if it is AND operator
@@ -2061,6 +2073,7 @@ public class Syntax {
             index++;
             return true;
         }
+        System.out.println("out of objdec");
         return false;
     }
 
