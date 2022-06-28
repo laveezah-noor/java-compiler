@@ -1,23 +1,24 @@
-\\int a = 5;
+int a = 5;
 \\string b = "Hello";
 \\boolean c=True;
 \\char d="chaha";
 \\int a = 0;
 \\float e = 4.5;
-\\a++;
-\\--a;
-\\int b = ++a + --a;
-\\int b += a;
-\\int c = b*a;
-\\\\ I am Comment
-\\int b -= a;
-\\int b *= a;
-\\int b /= a;
+a++;
+--a;
+\\int b = ++a + --a; !
+int b = ++a;
+\\int b += a; !
+int c = b*a;
+\\ I am Comment
+\\int b -= a; !
+\\int b *= a; !
+\\int b /= a; !
 
 \\For Loop
-\\for (int i = 0; i < 10; i++) {
-\\    a++;
-\\}
+for (int i = 0; i < 10; i++) {
+    a++;
+}
 
 \\While Loop
 \\while(a<5){a++;}
@@ -52,12 +53,13 @@ class Token {
     uni string type;
     uni string value;
     uni int line;
+    int line = 2;
     \\ Token class constructor
-    Token(int line, string type, string value) {
+    \\Token(int line, string type, string value) {
         this:line = line;
         this:type = type;
         this:value = value;
-    }
+    \\}
     \\ display() method to display
     \\ the Token data
     uni void display() {
