@@ -1,36 +1,37 @@
-int a = 5;
+\\int a = 5;
 \\string b = "Hello";
 \\boolean c=True;
 \\char d="chaha";
-\\int a = 0;
-\\float e = 4.5;
+int a = 0;
+float e = 4.5;
 a++;
 --a;
 \\int b = ++a + --a; !
-int b = ++a;
+\\int b = ++a;
 \\int b += a; !
-int c = b*a;
+\\int c = b*a;
 \\ I am Comment
 \\int b -= a; !
 \\int b *= a; !
 \\int b /= a; !
 
+print(a);
+
 \\For Loop
-for (int i = 0; i < 10; i++) {
-    a++;
-}
+\\for (int i = 0; i < 10; i++) {
+\\    a++;
+\\}
 
 \\While Loop
 \\while(a<5){a++;}
 \\
 \\\\Function
-\\void define functionName():
-\\    begin;
-\\    \\code to be executed
-\\    int a = 5;
-\\    print(a); 
-\\end functionName;
-\\functionName();
+void define functionName():
+    begin;
+    \\code to be executed
+    int a = 5; 
+end functionName;
+call functionName();
 
 \\int define functionName(No:int):
 \\    begin;

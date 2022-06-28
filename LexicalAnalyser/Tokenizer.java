@@ -240,7 +240,7 @@ public class Tokenizer {
 				// Public
 				"uni", 
 				"return", "static",
-				"super", "test", "void", "define", "begin", "end", "print" };
+				"super", "test", "void", "define", "begin", "end", "print", "call" };
 
 		// Condition to check if keyword exists in the list
 		boolean exists = false;
