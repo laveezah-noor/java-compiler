@@ -149,6 +149,13 @@ public class Syntax {
                             System.out.println(token.get(index).value);
                             return true;
                         }
+                        else if (SST()) {
+                            // System.out.println(token.get(index).value);
+                            // index++;
+                            System.out.println(token.get(index).value);
+                            S();
+                            // return true;
+                        }
                     }
                 }
             }
@@ -648,17 +655,12 @@ public class Syntax {
     }
 
     boolean dec() {
+        System.out.println("in dec "+ token.get(index).value);
         if (datatypeList.contains(token.get(index).value)) {
-
             if (datatypeList.contains(token.get(index).value)) {
-                // Ftype = token.get(index).value;
                 index++;
                 if (arr()) {
                     if (token.get(index).type.equals("ID")) {
-                        // Fname = token.get(index).value;
-                        // semanticClass.insert_FT(Fname, Ftype);
-                        // String N = token.get(index).value;
-                        // T1 = semanticClass.lookup_FT(N);
                         index++;
                         if (init()) {
                             if (fnlist()) {
@@ -667,6 +669,25 @@ public class Syntax {
                         }
                     }
                 }
+                else if (token.get(index).type.equals("ID")) {
+                    index++;
+                    System.out.println("it is ID");
+                    if (init()) {
+                        if (fnlist()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else if (token.get(index).type.equals("ID")) {
+            index++;
+            System.out.println("it is ID");
+            if (init()) {
+                if (fnlist()) {
+                    return true;
+                }
+            } else if(objdec()){
+                return true;
             }
         }
         return false;
@@ -704,7 +725,7 @@ public class Syntax {
             if (body()) {
                 return true;
             }
-        } else if (token.get(index).value.equals("Data Format")
+        } else if (datatypeList.contains(token.get(index).value)
                 || access_modifierList.contains(token.get(index).value)
                 || token.get(index).value.equals("++")
                 || token.get(index).value.equals("--")
@@ -736,6 +757,7 @@ public class Syntax {
                                 if (token.get(index).value.equals(")")) {
                                     index++;
                                     if (body()) {
+                                        System.out.println("for true");
                                         return true;
                                     }
                                 }
@@ -1215,6 +1237,7 @@ public class Syntax {
     }
 
     boolean body() {
+        System.out.println("body");
         // if body has only semicolon
         if (token.get(index).value.equals(";")) {
             index++;
